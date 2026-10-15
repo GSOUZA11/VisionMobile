@@ -23,6 +23,7 @@ import com.example.visionapp.R
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
+import com.example.visionapp.viewmodel.LoginState
 
 
 @Composable
@@ -144,10 +145,10 @@ fun LoginScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    if (viewModel.mensagemErro.isNotEmpty()) {
+                    if (viewModel.loginState is LoginState.Error) {
 
                         Text(
-                            text = viewModel.mensagemErro,
+                            text = (viewModel.loginState as LoginState.Error).mensagem,
                             color = Color.Red
                         )
 
@@ -158,7 +159,8 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(40.dp))
 
                     Button(
-                        enabled = !viewModel.carregando,
+                        enabled =
+                            viewModel.loginState !is LoginState.Loading,
                         onClick = {
 
                             scope.launch {
@@ -193,7 +195,7 @@ fun LoginScreen(
                     ) {
                         Text(
                             text =
-                                if (viewModel.carregando)
+                                if (viewModel.loginState is LoginState.Loading)
                                     "Entrando..."
                                 else
                                     "Entrar",

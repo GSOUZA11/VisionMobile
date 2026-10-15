@@ -16,10 +16,9 @@ class AuthViewModel : ViewModel() {
     var senha by mutableStateOf("")
         private set
 
-    var carregando by mutableStateOf(false)
-        private set
-
-    var mensagemErro by mutableStateOf("")
+    var loginState by mutableStateOf<LoginState>(
+        LoginState.Idle
+    )
         private set
 
     fun atualizarEmail(valor: String) {
@@ -32,8 +31,7 @@ class AuthViewModel : ViewModel() {
 
     suspend fun login(): Boolean {
 
-        carregando = true
-        mensagemErro = ""
+        loginState = LoginState.Loading
 
         return try {
 
@@ -42,23 +40,27 @@ class AuthViewModel : ViewModel() {
                 senha
             )
 
-            carregando = false
-
             if (resposta.isSuccessful) {
 
+                loginState = LoginState.Success
                 true
 
             } else {
 
-                mensagemErro = "E-mail ou senha inválidos."
-                false
+                loginState =
+                    LoginState.Error(
+                        "E-mail ou senha inválidos."
+                    )
 
+                false
             }
 
         } catch (e: Exception) {
 
-            carregando = false
-            mensagemErro = "Erro ao conectar com o servidor."
+            loginState =
+                LoginState.Error(
+                    "Erro ao conectar com o servidor."
+                )
 
             false
         }
