@@ -19,6 +19,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.visionapp.R
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+import com.example.visionapp.viewmodel.AuthViewModel
 
 
 @Composable
@@ -28,6 +31,8 @@ fun LoginScreen(
 
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
+    val viewModel = AuthViewModel()
+    val scope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
@@ -140,7 +145,31 @@ fun LoginScreen(
 
                     Button(
                         onClick = {
-                            navController.navigate(Routes.HOME)
+
+                            scope.launch {
+
+                                try {
+
+                                    val resposta =
+                                        viewModel.login(
+                                            email,
+                                            senha
+                                        )
+
+                                    if (resposta.isSuccessful) {
+
+                                        navController.navigate(
+                                            Routes.HOME
+                                        )
+
+                                    }
+
+                                } catch (e: Exception) {
+
+                                    e.printStackTrace()
+
+                                }
+                            }
                         },
                         modifier = Modifier
                             .fillMaxWidth()
