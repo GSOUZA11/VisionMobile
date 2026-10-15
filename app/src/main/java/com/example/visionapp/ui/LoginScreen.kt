@@ -1,5 +1,6 @@
 package com.example.visionapp.ui
 
+import com.example.visionapp.viewmodel.AuthViewModel
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
 import androidx.compose.foundation.Image
@@ -20,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.visionapp.R
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
-import com.example.visionapp.viewmodel.AuthViewModel
 
 
 @Composable
@@ -29,9 +30,7 @@ fun LoginScreen(
     navController: NavController
 ) {
 
-    var email by remember { mutableStateOf("") }
-    var senha by remember { mutableStateOf("") }
-    val viewModel = AuthViewModel()
+    val viewModel: AuthViewModel = viewModel()
     val scope = rememberCoroutineScope()
 
     Box(
@@ -122,8 +121,10 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(32.dp))
 
                     OutlinedTextField(
-                        value = email,
-                        onValueChange = { email = it },
+                        value = viewModel.email,
+                        onValueChange = {
+                            viewModel.atualizarEmail(it)
+                        },
                         label = { Text("E-mail") },
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(
@@ -134,29 +135,40 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
-                        value = senha,
-                        onValueChange = { senha = it },
+                        value = viewModel.senha,
+                        onValueChange = {
+                            viewModel.atualizarSenha(it)
+                        },
                         label = { Text("Senha") },
                         visualTransformation = PasswordVisualTransformation(),
                         modifier = Modifier.fillMaxWidth()
                     )
 
+                    if (viewModel.mensagemErro.isNotEmpty()) {
+
+                        Text(
+                            text = viewModel.mensagemErro,
+                            color = Color.Red
+                        )
+
+                        Spacer(
+                            modifier = Modifier.height(8.dp)
+                        )
+                    }
                     Spacer(modifier = Modifier.height(40.dp))
 
                     Button(
+                        enabled = !viewModel.carregando,
                         onClick = {
 
                             scope.launch {
 
                                 try {
 
-                                    val resposta =
-                                        viewModel.login(
-                                            email,
-                                            senha
-                                        )
+                                    val sucesso =
+                                        viewModel.login()
 
-                                    if (resposta.isSuccessful) {
+                                    if (sucesso) {
 
                                         navController.navigate(
                                             Routes.HOME
@@ -180,7 +192,11 @@ fun LoginScreen(
                         )
                     ) {
                         Text(
-                            text = "Entrar",
+                            text =
+                                if (viewModel.carregando)
+                                    "Entrando..."
+                                else
+                                    "Entrar",
                             color = Color.White,
                             fontWeight = FontWeight.Bold
                         )
