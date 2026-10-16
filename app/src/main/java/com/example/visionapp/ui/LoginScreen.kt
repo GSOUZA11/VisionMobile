@@ -168,6 +168,13 @@ fun LoginScreen(
 
                                     if (sucesso) {
 
+                                        viewModel.loginResponse?.token?.let { token ->
+
+                                            tokenManager.saveToken(token)
+
+                                            println("TOKEN SALVO: $token")
+                                        }
+
                                         println("INDO PARA HOME")
 
                                         navController.navigate(

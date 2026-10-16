@@ -10,6 +10,10 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.visionapp.viewmodel.OculosViewModel
+
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,10 +23,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+
 @Composable
 fun HomeScreen(
     navController: NavController
 ) {
+    val oculosViewModel: OculosViewModel = viewModel()
+
+    LaunchedEffect(Unit) {
+        oculosViewModel.carregarOculos()
+    }
 
     Scaffold(
 
@@ -105,6 +115,9 @@ fun HomeScreen(
                             text = "Bem vindo de volta!",
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Produtos encontrados: ${oculosViewModel.listaOculos.value.size}"
                         )
                     }
 

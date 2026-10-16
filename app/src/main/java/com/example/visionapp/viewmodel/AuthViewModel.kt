@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.visionapp.repository.AuthRepository
+import com.example.visionapp.model.LoginResponse
 
 class AuthViewModel : ViewModel() {
 
@@ -21,6 +22,8 @@ class AuthViewModel : ViewModel() {
     )
         private set
 
+    var loginResponse by mutableStateOf<LoginResponse?>(null)
+        private set
     fun atualizarEmail(valor: String) {
         email = valor
     }
@@ -44,6 +47,7 @@ class AuthViewModel : ViewModel() {
 
             if (resposta.isSuccessful) {
 
+                loginResponse = resposta.body()
                 println("LOGIN OK")
                 println("BODY: ${resposta.body()}")
 
