@@ -1,7 +1,5 @@
 package com.example.visionapp.ui
 
-import androidx.compose.ui.platform.LocalContext
-import com.example.visionapp.utils.TokenManager
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
 import androidx.compose.foundation.Image
@@ -35,9 +33,6 @@ fun LoginScreen(
     var senha by remember { mutableStateOf("") }
     val viewModel = AuthViewModel()
     val scope = rememberCoroutineScope()
-
-    val context = LocalContext.current
-    val tokenManager = TokenManager(context)
 
     Box(
         modifier = Modifier
@@ -161,27 +156,16 @@ fun LoginScreen(
                                             senha
                                         )
 
-                                    println("HTTP: ${resposta.code()}")
-                                    println("SUCESSO: ${resposta.isSuccessful}")
-                                    println("TOKEN: ${resposta.body()?.token}")
-
                                     if (resposta.isSuccessful) {
 
-                                        val token = resposta.body()?.token
+                                        navController.navigate(
+                                            Routes.HOME
+                                        )
 
-                                        if (token != null) {
-
-                                            tokenManager.saveToken(token)
-
-                                            navController.navigate(
-                                                Routes.HOME
-                                            )
-                                        }
                                     }
 
                                 } catch (e: Exception) {
 
-                                    println("ERRO LOGIN: ${e.message}")
                                     e.printStackTrace()
 
                                 }
