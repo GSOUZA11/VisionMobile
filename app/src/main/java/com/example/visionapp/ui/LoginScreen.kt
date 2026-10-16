@@ -22,6 +22,8 @@ import com.example.visionapp.R
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import com.example.visionapp.viewmodel.AuthViewModel
+import androidx.compose.ui.platform.LocalContext
+import com.example.visionapp.utils.TokenManager
 
 
 @Composable
@@ -33,6 +35,9 @@ fun LoginScreen(
     var senha by remember { mutableStateOf("") }
     val viewModel = AuthViewModel()
     val scope = rememberCoroutineScope()
+
+    val context = LocalContext.current
+    val tokenManager = TokenManager(context)
 
     Box(
         modifier = Modifier
@@ -150,13 +155,12 @@ fun LoginScreen(
 
                                 try {
 
-                                    val resposta =
-                                        viewModel.login(
-                                            email,
-                                            senha
-                                        )
+                                    viewModel.atualizarEmail(email)
+                                    viewModel.atualizarSenha(senha)
 
-                                    if (resposta.isSuccessful) {
+                                    val sucesso = viewModel.login()
+
+                                    if (sucesso) {
 
                                         navController.navigate(
                                             Routes.HOME
