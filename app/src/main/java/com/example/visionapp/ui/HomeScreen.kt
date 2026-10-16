@@ -1,5 +1,6 @@
 package com.example.visionapp.ui
 
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,7 +14,6 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionapp.viewmodel.OculosViewModel
-
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -218,19 +218,20 @@ fun HomeScreen(
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
-
-                ProdutoOferta(
-                    nome = "UrbanLine",
-                    preco = "R$ 207,92"
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                ProdutoOferta(
-                    nome = "Azul Nautilus",
-                    preco = "R$ 743,20"
-                )
             }
+                items(
+                    oculosViewModel.listaOculos.value
+                ) { oculos ->
+
+                    ProdutoOferta(
+                        nome = oculos.nome,
+                        preco = "R$ ${oculos.preco}"
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(16.dp)
+                    )
+                }
         }
     }
 }
