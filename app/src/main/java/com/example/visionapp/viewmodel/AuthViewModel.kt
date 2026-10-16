@@ -40,12 +40,20 @@ class AuthViewModel : ViewModel() {
                 senha
             )
 
+            println("CODIGO HTTP: ${resposta.code()}")
+
             if (resposta.isSuccessful) {
+
+                println("LOGIN OK")
+                println("BODY: ${resposta.body()}")
 
                 loginState = LoginState.Success
                 true
 
             } else {
+
+                println("CODIGO HTTP: ${resposta.code()}")
+                println("BODY ERRO: ${resposta.errorBody()?.string()}")
 
                 loginState =
                     LoginState.Error(
@@ -56,6 +64,10 @@ class AuthViewModel : ViewModel() {
             }
 
         } catch (e: Exception) {
+
+            e.printStackTrace()
+
+            println("EXCEPTION: ${e.message}")
 
             loginState =
                 LoginState.Error(
