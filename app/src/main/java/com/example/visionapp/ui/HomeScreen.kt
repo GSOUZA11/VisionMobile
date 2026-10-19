@@ -1,5 +1,6 @@
 package com.example.visionapp.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -253,7 +254,10 @@ fun HomeScreen(
                         categoria = oculos.categoria,
                         cor = oculos.cor,
                         material = oculos.material,
-                        imagem = oculos.imagem
+                        imagem = oculos.imagem,
+                        onClick = {
+                            navController.navigate("detalhes_produto")
+                        }
                     )
 
                     Spacer(
@@ -296,16 +300,22 @@ fun ProdutoOferta(
     categoria: String,
     cor: String,
     material: String?,
-    imagem: String
+    imagem: String,
+    onClick: () -> Unit
 
 ) {
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onClick()
+            },
         shape = RoundedCornerShape(16.dp)
     ) {
 
-        Column(
+
+    Column(
             modifier = Modifier.padding(16.dp)
         ) {
 

@@ -9,6 +9,7 @@ import com.example.visionapp.ui.EsqueceuSenhaScreen
 import com.example.visionapp.ui.HomeScreen
 import com.example.visionapp.ui.LoginScreen
 import com.example.visionapp.ui.SplashScreen
+import com.example.visionapp.ui.DetalhesProdutoScreen
 
 @Composable
 fun AppNavigation() {
@@ -39,5 +40,9 @@ fun AppNavigation() {
         composable(Routes.HOME) {
             HomeScreen(navController)
         }
+        composable("detalhes_produto") {
+            DetalhesProdutoScreen()
+        }
+
     }
 }
