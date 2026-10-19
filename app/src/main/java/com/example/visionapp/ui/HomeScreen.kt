@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 
 
 @Composable
@@ -228,7 +229,8 @@ fun HomeScreen(
                         preco = "R$ ${oculos.preco}",
                         categoria = oculos.categoria,
                         cor = oculos.cor,
-                        material = oculos.material
+                        material = oculos.material,
+                        imagem = oculos.imagem
                     )
 
                     Spacer(
@@ -270,7 +272,9 @@ fun ProdutoOferta(
     preco: String,
     categoria: String,
     cor: String,
-    material: String?
+    material: String?,
+    imagem: String
+
 ) {
 
     Card(
@@ -282,13 +286,21 @@ fun ProdutoOferta(
             modifier = Modifier.padding(16.dp)
         ) {
 
-            Text(
-                text = nome,
-                fontWeight = FontWeight.Bold
+            AsyncImage(
+                model = "http://10.39.45.29:3000/uploads/$imagem",
+                contentDescription = nome,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
             )
 
             Spacer(
                 modifier = Modifier.height(8.dp)
+            )
+
+            Text(
+                text = nome,
+                fontWeight = FontWeight.Bold
             )
 
             Text(
