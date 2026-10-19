@@ -225,7 +225,10 @@ fun HomeScreen(
 
                     ProdutoOferta(
                         nome = oculos.nome,
-                        preco = "R$ ${oculos.preco}"
+                        preco = "R$ ${oculos.preco}",
+                        categoria = oculos.categoria,
+                        cor = oculos.cor,
+                        material = oculos.material
                     )
 
                     Spacer(
@@ -264,7 +267,10 @@ fun CategoriaCard(
 @Composable
 fun ProdutoOferta(
     nome: String,
-    preco: String
+    preco: String,
+    categoria: String,
+    cor: String,
+    material: String?
 ) {
 
     Card(
@@ -279,6 +285,22 @@ fun ProdutoOferta(
             Text(
                 text = nome,
                 fontWeight = FontWeight.Bold
+            )
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
+            Text(
+                text = "Categoria: $categoria"
+            )
+
+            Text(
+                text = "Cor: $cor"
+            )
+
+            Text(
+                text = "Material: ${material ?: "Não informado"}"
             )
 
             Spacer(
