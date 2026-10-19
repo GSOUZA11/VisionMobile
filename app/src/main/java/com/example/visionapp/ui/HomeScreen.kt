@@ -22,9 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.compose.ui.platform.LocalContext
 import com.example.visionapp.navigation.Routes
 import com.example.visionapp.utils.TokenManager
-import androidx.compose.ui.platform.LocalContext
+import coil.compose.AsyncImage
 
 
 @Composable
@@ -248,7 +249,11 @@ fun HomeScreen(
 
                     ProdutoOferta(
                         nome = oculos.nome,
-                        preco = "R$ ${oculos.preco}"
+                        preco = "R$ ${oculos.preco}",
+                        categoria = oculos.categoria,
+                        cor = oculos.cor,
+                        material = oculos.material,
+                        imagem = oculos.imagem
                     )
 
                     Spacer(
@@ -287,7 +292,12 @@ fun CategoriaCard(
 @Composable
 fun ProdutoOferta(
     nome: String,
-    preco: String
+    preco: String,
+    categoria: String,
+    cor: String,
+    material: String?,
+    imagem: String
+
 ) {
 
     Card(
@@ -299,9 +309,33 @@ fun ProdutoOferta(
             modifier = Modifier.padding(16.dp)
         ) {
 
+            AsyncImage(
+                model = "http://10.39.45.29:3000/uploads/$imagem",
+                contentDescription = nome,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
+            )
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
             Text(
                 text = nome,
                 fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = "Categoria: $categoria"
+            )
+
+            Text(
+                text = "Cor: $cor"
+            )
+
+            Text(
+                text = "Material: ${material ?: "Não informado"}"
             )
 
             Spacer(
