@@ -1,4 +1,4 @@
-package com.example.visionapp.ui
+package com.example.visionapp.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

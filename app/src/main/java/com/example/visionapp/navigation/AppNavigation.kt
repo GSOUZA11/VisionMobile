@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.visionapp.ui.CadastroScreen
-import com.example.visionapp.ui.EsqueceuSenhaScreen
-import com.example.visionapp.ui.HomeScreen
-import com.example.visionapp.ui.LoginScreen
-import com.example.visionapp.ui.SplashScreen
-import com.example.visionapp.ui.DetalhesProdutoScreen
+import com.example.visionapp.ui.screens.CadastroScreen
+import com.example.visionapp.ui.screens.EsqueceuSenhaScreen
+import com.example.visionapp.ui.screens.HomeScreen
+import com.example.visionapp.ui.screens.LoginScreen
+import com.example.visionapp.ui.screens.SplashScreen
+import com.example.visionapp.ui.screens.DetalhesProdutoScreen
 
 @Composable
 fun AppNavigation() {

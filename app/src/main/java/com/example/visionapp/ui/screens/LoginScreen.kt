@@ -1,5 +1,7 @@
-package com.example.visionapp.ui
+package com.example.visionapp.ui.screens
 
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,19 +18,27 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.visionapp.R
-import com.example.visionapp.navigation.Routes
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+import com.example.visionapp.viewmodel.AuthViewModel
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.visionapp.utils.TokenManager
+
 
 @Composable
-fun CadastroScreen(
+fun LoginScreen(
     navController: NavController
 ) {
 
-    var nome by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
-    var confirmarSenha by remember { mutableStateOf("") }
+    val viewModel: AuthViewModel = viewModel()
+    val scope = rememberCoroutineScope()
+
+    val context = LocalContext.current
+    val tokenManager = TokenManager(context)
 
     Box(
         modifier = Modifier
@@ -43,6 +53,7 @@ fun CadastroScreen(
 
             Spacer(modifier = Modifier.height(70.dp))
 
+            // LOGO
             Image(
                 painter = painterResource(id = R.drawable.logo_vision),
                 contentDescription = "Logo Vision",
@@ -81,19 +92,6 @@ fun CadastroScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
 
-                        TextButton(
-                            onClick = {
-                                navController.navigate(Routes.LOGIN)
-                            },
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = "Login",
-                                color = Color.White
-                            )
-                        }
-
-
                         Button(
                             onClick = {},
                             modifier = Modifier.weight(1f),
@@ -102,28 +100,32 @@ fun CadastroScreen(
                                 containerColor = Color.Black
                             )
                         ) {
-                            Text("Cadastrar-se")
+                            Text("Login")
                         }
+
+                        TextButton(
+                            onClick = {
+                                navController.navigate(Routes.CADASTRO)
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = "Cadastrar-se",
+                                color = Color.White
+                            )
+                        }
+
                     }
 
                     Spacer(modifier = Modifier.height(36.dp))
 
                     Text(
-                        text = "Criar Conta",
+                        text = "Bem-vindo ao Vision",
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold
                     )
 
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    OutlinedTextField(
-                        value = nome,
-                        onValueChange = { nome = it },
-                        label = { Text("Nome") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
                     OutlinedTextField(
                         value = email,
@@ -135,31 +137,62 @@ fun CadastroScreen(
                         )
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
                         value = senha,
                         onValueChange = { senha = it },
                         label = { Text("Senha") },
-                        modifier = Modifier.fillMaxWidth(),
-                        visualTransformation = PasswordVisualTransformation()
+                        visualTransformation = PasswordVisualTransformation(),
+                        modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    OutlinedTextField(
-                        value = confirmarSenha,
-                        onValueChange = { confirmarSenha = it },
-                        label = { Text("Confirmar Senha") },
-                        modifier = Modifier.fillMaxWidth(),
-                        visualTransformation = PasswordVisualTransformation()
-                    )
-
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(40.dp))
 
                     Button(
                         onClick = {
-                            // cadastro
+
+                            scope.launch {
+
+                                try {
+
+                                    viewModel.atualizarEmail(email)
+                                    viewModel.atualizarSenha(senha)
+
+                                    println("EMAIL: $email")
+                                    println("SENHA: $senha")
+
+                                    val sucesso = viewModel.login()
+
+                                    println("SUCESSO LOGIN: $sucesso")
+
+                                    if (sucesso) {
+
+                                        viewModel.loginResponse?.token?.let { token ->
+
+                                            tokenManager.saveToken(token)
+
+                                            println("TOKEN SALVO: $token")
+                                        }
+
+                                        println("INDO PARA HOME")
+
+                                        navController.navigate(
+                                            Routes.HOME
+                                        )
+
+                                    } else {
+
+                                        println("LOGIN FALHOU")
+
+                                    }
+
+                                } catch (e: Exception) {
+
+                                    e.printStackTrace()
+
+                                }
+                            }
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -170,9 +203,23 @@ fun CadastroScreen(
                         )
                     ) {
                         Text(
-                            text = "Cadastrar",
+                            text = "Entrar",
                             color = Color.White,
                             fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    TextButton(
+                        onClick = {
+                            navController.navigate(Routes.ESQUECEU_SENHA)
+                        },
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Text(
+                            text = "Esqueceu sua senha?",
+                            color = Color(0xFFE67600)
                         )
                     }
                 }

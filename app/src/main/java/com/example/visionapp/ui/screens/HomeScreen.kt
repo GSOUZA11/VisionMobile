@@ -1,4 +1,4 @@
-package com.example.visionapp.ui
+package com.example.visionapp.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.items
