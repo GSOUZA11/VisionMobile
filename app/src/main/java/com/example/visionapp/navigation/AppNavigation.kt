@@ -8,6 +8,7 @@ import com.example.visionapp.ui.CadastroScreen
 import com.example.visionapp.ui.EsqueceuSenhaScreen
 import com.example.visionapp.ui.HomeScreen
 import com.example.visionapp.ui.LoginScreen
+import com.example.visionapp.ui.SplashScreen
 
 @Composable
 fun AppNavigation() {
@@ -16,8 +17,12 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.LOGIN
+        startDestination = Routes.SPLASH
     ) {
+
+        composable(Routes.SPLASH) {
+            SplashScreen(navController)
+        }
 
         composable(Routes.LOGIN) {
             LoginScreen(navController)
@@ -26,9 +31,11 @@ fun AppNavigation() {
         composable(Routes.CADASTRO) {
             CadastroScreen(navController)
         }
+
         composable(Routes.ESQUECEU_SENHA) {
             EsqueceuSenhaScreen(navController)
         }
+
         composable(Routes.HOME) {
             HomeScreen(navController)
         }

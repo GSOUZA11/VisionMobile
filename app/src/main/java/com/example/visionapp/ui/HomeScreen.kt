@@ -22,6 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
+import com.example.visionapp.utils.TokenManager
+import androidx.compose.ui.platform.LocalContext
 
 
 @Composable
@@ -29,6 +32,8 @@ fun HomeScreen(
     navController: NavController
 ) {
     val oculosViewModel: OculosViewModel = viewModel()
+
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         oculosViewModel.carregarOculos()
@@ -85,6 +90,24 @@ fun HomeScreen(
                         Text("Pedidos")
                     }
                 )
+
+                TextButton(
+                    onClick = {
+
+                        TokenManager(context)
+                            .clearToken()
+
+                        navController.navigate(
+                            Routes.LOGIN
+                        ) {
+                            popUpTo(Routes.HOME) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                ) {
+                    Text("Sair")
+                }
             }
         }
 
