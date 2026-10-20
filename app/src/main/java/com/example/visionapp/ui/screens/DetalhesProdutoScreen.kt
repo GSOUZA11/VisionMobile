@@ -3,6 +3,7 @@ package com.example.visionapp.ui.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -46,6 +47,18 @@ fun DetalhesProdutoScreen(
 
         Text(
             text = "ID do produto: $id"
+        )
+
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
+
+        AsyncImage(
+            model = "http://10.39.45.29:3000/uploads/${produto?.imagem}",
+            contentDescription = produto?.nome,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(250.dp)
         )
 
         Spacer(
