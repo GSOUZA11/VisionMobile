@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionapp.viewmodel.OculosViewModel
 import coil.compose.AsyncImage
+import androidx.compose.material3.Button
 
 @Composable
 fun DetalhesProdutoScreen(
@@ -77,12 +78,54 @@ fun DetalhesProdutoScreen(
             text = "Cor: ${produto?.cor ?: ""}"
         )
 
+
         Text(
-            text = "Material: ${produto?.material ?: ""}"
+            text = "Marca: ${produto?.marca ?: "Não informada"}"
+        )
+
+        Text(
+            text = "Grau: ${produto?.grau ?: "Não informado"}"
+        )
+
+        Text(
+            text = "Tamanho: ${produto?.tamanho}"
+        )
+
+        Spacer(
+            modifier = Modifier.height(8.dp)
+        )
+
+        Text(
+            text = "Descrição:"
+        )
+
+        Text(
+            text = produto?.descricao ?: ""
+        )
+
+        Spacer(
+            modifier = Modifier.height(8.dp)
+        )
+
+        Text(
+            text = "Estoque: ${produto?.estoque ?: 0}"
+        )
+
+        Spacer(
+            modifier = Modifier.height(12.dp)
         )
 
         Text(
             text = "Preço: R$ ${produto?.preco ?: ""}"
         )
+        Spacer(
+            modifier = Modifier.height(24.dp)
+        )
+
+        Button(
+            onClick = { }
+        ) {
+            Text("Comprar")
+        }
     }
 }
