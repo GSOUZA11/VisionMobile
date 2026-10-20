@@ -6,9 +6,11 @@ object Routes {
 
     const val LOGIN = "login"
     const val CADASTRO = "cadastro"
-
     const val ESQUECEU_SENHA = "esqueceu_senha"
 
     const val HOME = "home"
 
+    const val CATEGORIA = "categoria"
+    const val CARRINHO = "carrinho"
+    const val MAIS = "mais"
 }
