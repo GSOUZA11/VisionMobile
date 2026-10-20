@@ -7,12 +7,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.visionapp.ui.screens.CadastroScreen
 import com.example.visionapp.ui.screens.CarrinhoScreen
 import com.example.visionapp.ui.screens.CategoriaScreen
+import com.example.visionapp.ui.screens.DetalhesProdutoScreen
 import com.example.visionapp.ui.screens.EsqueceuSenhaScreen
 import com.example.visionapp.ui.screens.HomeScreen
 import com.example.visionapp.ui.screens.LoginScreen
-import com.example.visionapp.ui.screens.SplashScreen
-import com.example.visionapp.ui.screens.DetalhesProdutoScreen
 import com.example.visionapp.ui.screens.MaisScreen
+import com.example.visionapp.ui.screens.SplashScreen
 
 @Composable
 fun AppNavigation() {
@@ -43,13 +43,17 @@ fun AppNavigation() {
         composable(Routes.HOME) {
             HomeScreen(navController)
         }
+
         composable("detalhes_produto/{id}") { backStackEntry ->
 
             val id = backStackEntry.arguments
                 ?.getString("id")
                 ?.toIntOrNull() ?: 0
 
-            DetalhesProdutoScreen(id)
+            DetalhesProdutoScreen(
+                id = id,
+                navController = navController
+            )
         }
 
         composable(Routes.CATEGORIA) {
@@ -63,6 +67,5 @@ fun AppNavigation() {
         composable(Routes.MAIS) {
             MaisScreen(navController)
         }
-
     }
 }

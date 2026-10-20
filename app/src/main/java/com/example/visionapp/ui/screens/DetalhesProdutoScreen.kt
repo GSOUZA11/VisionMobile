@@ -16,11 +16,14 @@ import coil.compose.AsyncImage
 import com.example.visionapp.viewmodel.OculosViewModel
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
 import com.example.visionapp.viewmodel.CarrinhoViewModel
+import com.example.visionapp.navigation.Routes
 
 @Composable
 fun DetalhesProdutoScreen(
-    id: Int
+    id: Int,
+    navController: NavController
 ) {
 
     val oculosViewModel: OculosViewModel = viewModel()
@@ -188,8 +191,7 @@ fun DetalhesProdutoScreen(
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        // Futuramente:
-                        // navController.navigate("carrinho")
+                        navController.navigate(Routes.CARRINHO)
                     }
 
                 },
