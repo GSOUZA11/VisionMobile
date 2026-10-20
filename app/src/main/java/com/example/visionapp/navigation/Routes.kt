@@ -13,4 +13,6 @@ object Routes {
     const val CATEGORIA = "categoria"
     const val CARRINHO = "carrinho"
     const val MAIS = "mais"
+
+    const val PERFIL = "perfil"
 }

@@ -13,6 +13,8 @@ import com.example.visionapp.ui.screens.HomeScreen
 import com.example.visionapp.ui.screens.LoginScreen
 import com.example.visionapp.ui.screens.MaisScreen
 import com.example.visionapp.ui.screens.SplashScreen
+import com.example.visionapp.ui.screens.PerfilScreen
+
 
 @Composable
 fun AppNavigation() {
@@ -66,6 +68,9 @@ fun AppNavigation() {
 
         composable(Routes.MAIS) {
             MaisScreen(navController)
+        }
+        composable(Routes.PERFIL) {
+            PerfilScreen(navController)
         }
     }
 }
