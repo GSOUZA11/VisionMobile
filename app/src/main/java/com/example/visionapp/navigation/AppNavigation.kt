@@ -40,8 +40,13 @@ fun AppNavigation() {
         composable(Routes.HOME) {
             HomeScreen(navController)
         }
-        composable("detalhes_produto") {
-            DetalhesProdutoScreen()
+        composable("detalhes_produto/{id}") { backStackEntry ->
+
+            val id = backStackEntry.arguments
+                ?.getString("id")
+                ?.toIntOrNull() ?: 0
+
+            DetalhesProdutoScreen(id)
         }
 
     }

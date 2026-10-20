@@ -158,7 +158,7 @@ fun HomeScreen(
                         material = oculos.material,
                         imagem = oculos.imagem,
                         onClick = {
-                            navController.navigate("detalhes_produto")
+                            navController.navigate("detalhes_produto/${oculos.id}")
                         }
                     )
 
