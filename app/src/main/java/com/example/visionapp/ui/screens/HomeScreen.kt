@@ -29,6 +29,7 @@ import coil.compose.AsyncImage
 import com.example.visionapp.ui.components.CategoriaCard
 import com.example.visionapp.ui.components.HomeHeader
 import com.example.visionapp.ui.components.HomeBottomBar
+import com.example.visionapp.ui.components.SearchBar
 
 
 @Composable
@@ -68,20 +69,7 @@ fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.Search,
-                            contentDescription = null
-                        )
-                    },
-                    placeholder = {
-                        Text("Pesquisar")
-                    }
-                )
+                SearchBar()
 
                 Spacer(modifier = Modifier.height(20.dp))
 
