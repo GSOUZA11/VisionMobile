@@ -5,11 +5,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.visionapp.ui.screens.CadastroScreen
+import com.example.visionapp.ui.screens.CarrinhoScreen
+import com.example.visionapp.ui.screens.CategoriaScreen
 import com.example.visionapp.ui.screens.EsqueceuSenhaScreen
 import com.example.visionapp.ui.screens.HomeScreen
 import com.example.visionapp.ui.screens.LoginScreen
 import com.example.visionapp.ui.screens.SplashScreen
 import com.example.visionapp.ui.screens.DetalhesProdutoScreen
+import com.example.visionapp.ui.screens.MaisScreen
 
 @Composable
 fun AppNavigation() {
@@ -47,6 +50,18 @@ fun AppNavigation() {
                 ?.toIntOrNull() ?: 0
 
             DetalhesProdutoScreen(id)
+        }
+
+        composable(Routes.CATEGORIA) {
+            CategoriaScreen(navController)
+        }
+
+        composable(Routes.CARRINHO) {
+            CarrinhoScreen(navController)
+        }
+
+        composable(Routes.MAIS) {
+            MaisScreen(navController)
         }
 
     }

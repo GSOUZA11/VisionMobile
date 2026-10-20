@@ -5,13 +5,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionapp.viewmodel.OculosViewModel
@@ -24,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.ui.platform.LocalContext
 import com.example.visionapp.navigation.Routes
-import com.example.visionapp.utils.TokenManager
 import coil.compose.AsyncImage
 import com.example.visionapp.ui.components.CategoriaCard
 import com.example.visionapp.ui.components.HomeHeader
@@ -47,7 +39,10 @@ fun HomeScreen(
     Scaffold(
 
         bottomBar = {
-            HomeBottomBar()
+            HomeBottomBar(
+                currentRoute = Routes.HOME,
+                navController = navController
+            )
         }
 
 
