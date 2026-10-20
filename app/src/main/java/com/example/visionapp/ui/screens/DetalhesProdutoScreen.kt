@@ -87,14 +87,6 @@ fun DetalhesProdutoScreen(
             )
 
             Text(
-                text = "Material: ${produto?.material ?: "Não informado"}"
-            )
-
-            Text(
-                text = "Marca: ${produto?.marca ?: "Não informada"}"
-            )
-
-            Text(
                 text = "Grau: ${produto?.grau ?: "Não informado"}"
             )
 
