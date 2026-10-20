@@ -143,6 +143,14 @@ fun DetalhesProdutoScreen(
             Spacer(
                 modifier = Modifier.height(8.dp)
             )
+            Text(
+                text = "Valor total: R$ ${carrinhoViewModel.valorTotal()}"
+            )
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
             Button(
                 onClick = {
 
@@ -155,6 +163,33 @@ fun DetalhesProdutoScreen(
                             "${it.nome} adicionado ao carrinho",
                             Toast.LENGTH_SHORT
                         ).show()
+                    }
+
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Adicionar ao Carrinho")
+            }
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            Button(
+                onClick = {
+
+                    produto?.let {
+
+                        carrinhoViewModel.adicionarProduto(it)
+
+                        Toast.makeText(
+                            context,
+                            "Produto adicionado. Abrir carrinho em breve.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // Futuramente:
+                        // navController.navigate("carrinho")
                     }
 
                 },
