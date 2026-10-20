@@ -17,7 +17,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionapp.viewmodel.OculosViewModel
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -27,6 +26,9 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.visionapp.navigation.Routes
 import com.example.visionapp.utils.TokenManager
 import coil.compose.AsyncImage
+import com.example.visionapp.ui.components.CategoriaCard
+import com.example.visionapp.ui.components.HomeHeader
+import com.example.visionapp.ui.components.HomeBottomBar
 
 
 @Composable
@@ -44,74 +46,9 @@ fun HomeScreen(
     Scaffold(
 
         bottomBar = {
-
-            NavigationBar(
-                containerColor = Color(0xFF303030)
-            ) {
-
-                NavigationBarItem(
-                    selected = true,
-                    onClick = {},
-                    icon = {
-                        Icon(Icons.Default.Home, contentDescription = null)
-                    },
-                    label = {
-                        Text("Home")
-                    }
-                )
-
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {},
-                    icon = {
-                        Icon(Icons.Default.Favorite, contentDescription = null)
-                    },
-                    label = {
-                        Text("Favorito")
-                    }
-                )
-
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {},
-                    icon = {
-                        Icon(Icons.Default.ShoppingCart, contentDescription = null)
-                    },
-                    label = {
-                        Text("Carrinho")
-                    }
-                )
-
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {},
-                    icon = {
-                        Icon(Icons.Default.Person, contentDescription = null)
-                    },
-                    label = {
-                        Text("Pedidos")
-                    }
-                )
-
-                TextButton(
-                    onClick = {
-
-                        TokenManager(context)
-                            .clearToken()
-
-                        navController.navigate(
-                            Routes.LOGIN
-                        ) {
-                            popUpTo(Routes.HOME) {
-                                inclusive = true
-                            }
-                        }
-                    }
-                ) {
-                    Text("Sair")
-                }
-            }
+            HomeBottomBar()
         }
+
 
     ) { padding ->
 
@@ -124,45 +61,10 @@ fun HomeScreen(
 
             item {
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Column {
-
-                        Text(
-                            text = "Olá, Vision!",
-                            color = Color.Gray
-                        )
-
-                        Text(
-                            text = "Bem vindo de volta!",
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "Produtos encontrados: ${oculosViewModel.listaOculos.value.size}"
-                        )
-                    }
-
-                    Row {
-
-                        IconButton(onClick = {}) {
-                            Icon(
-                                Icons.Default.Notifications,
-                                contentDescription = null
-                            )
-                        }
-
-                        IconButton(onClick = {}) {
-                            Icon(
-                                Icons.Default.Person,
-                                contentDescription = null
-                            )
-                        }
-                    }
-                }
+                HomeHeader(
+                    quantidadeProdutos =
+                        oculosViewModel.listaOculos.value.size
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -268,30 +170,7 @@ fun HomeScreen(
     }
 }
 
-@Composable
-fun CategoriaCard(
-    nome: String
-) {
 
-    Card(
-        modifier = Modifier.size(
-            width = 110.dp,
-            height = 120.dp
-        ),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = nome,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
 
 @Composable
 fun ProdutoOferta(
