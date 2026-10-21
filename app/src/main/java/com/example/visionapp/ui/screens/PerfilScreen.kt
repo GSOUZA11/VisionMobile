@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
 
 @Composable
 fun PerfilScreen(
@@ -64,7 +65,7 @@ fun PerfilScreen(
 
         Button(
             onClick = {
-                // Vamos ligar depois na EditarPerfilScreen
+                navController.navigate(Routes.EDITAR_PERFIL)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
