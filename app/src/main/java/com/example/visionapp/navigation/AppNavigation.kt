@@ -8,14 +8,13 @@ import com.example.visionapp.ui.screens.CadastroScreen
 import com.example.visionapp.ui.screens.CarrinhoScreen
 import com.example.visionapp.ui.screens.CategoriaScreen
 import com.example.visionapp.ui.screens.DetalhesProdutoScreen
+import com.example.visionapp.ui.screens.EditarPerfilScreen
 import com.example.visionapp.ui.screens.EsqueceuSenhaScreen
 import com.example.visionapp.ui.screens.HomeScreen
 import com.example.visionapp.ui.screens.LoginScreen
 import com.example.visionapp.ui.screens.MaisScreen
-import com.example.visionapp.ui.screens.SplashScreen
 import com.example.visionapp.ui.screens.PerfilScreen
-import com.example.visionapp.ui.screens.EditarPerfilScreen
-
+import com.example.visionapp.ui.screens.SplashScreen
 
 @Composable
 fun AppNavigation() {
@@ -70,9 +69,11 @@ fun AppNavigation() {
         composable(Routes.MAIS) {
             MaisScreen(navController)
         }
+
         composable(Routes.PERFIL) {
             PerfilScreen(navController)
         }
+
         composable(Routes.EDITAR_PERFIL) {
             EditarPerfilScreen(navController)
         }

@@ -15,4 +15,5 @@ object Routes {
     const val MAIS = "mais"
 
     const val PERFIL = "perfil"
+    const val EDITAR_PERFIL = "editar_perfil"
 }
