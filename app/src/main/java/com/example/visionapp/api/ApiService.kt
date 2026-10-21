@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+import com.example.visionapp.model.Usuario
 
 
 interface ApiService {
@@ -18,5 +19,8 @@ interface ApiService {
 
     @GET("api/oculos")
     suspend fun listarOculos(): Response<List<Oculos>>
+
+    @GET("api/perfil")
+    suspend fun buscarPerfil(): Response<Usuario>
 
 }

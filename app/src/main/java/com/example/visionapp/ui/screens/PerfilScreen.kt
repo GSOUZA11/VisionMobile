@@ -11,11 +11,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.LaunchedEffect
+import com.example.visionapp.viewmodel.PerfilViewModel
 
 @Composable
 fun PerfilScreen(
     navController: NavController
 ) {
+
+    val perfilViewModel: PerfilViewModel = viewModel()
+
+    LaunchedEffect(Unit) {
+        perfilViewModel.carregarPerfil()
+    }
+
+    val usuario = perfilViewModel.usuario.value
 
     Column(
         modifier = Modifier
@@ -41,20 +52,21 @@ fun PerfilScreen(
             ) {
 
                 Text(
-                    text = "Gabriel Araujo Souza",
+                    text = usuario?.nome ?: "Carregando...",
                     fontWeight = FontWeight.Bold
                 )
+
 
                 Spacer(
                     modifier = Modifier.height(8.dp)
                 )
 
                 Text(
-                    text = "gabriel@email.com"
+                    text = usuario?.email ?: ""
                 )
 
                 Text(
-                    text = "(11) 99999-9999"
+                    text = usuario?.telefone ?: ""
                 )
             }
         }
