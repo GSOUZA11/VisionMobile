@@ -138,7 +138,6 @@ fun HomeScreen(
                         preco = "R$ ${oculos.preco}",
                         categoria = oculos.categoria,
                         cor = oculos.cor,
-                        material = oculos.material,
                         imagem = oculos.imagem,
                         onClick = {
                             navController.navigate("detalhes_produto/${oculos.id}")
@@ -161,7 +160,6 @@ fun ProdutoOferta(
     preco: String,
     categoria: String,
     cor: String,
-    material: String?,
     imagem: String,
     onClick: () -> Unit
 
@@ -204,10 +202,6 @@ fun ProdutoOferta(
 
             Text(
                 text = "Cor: $cor"
-            )
-
-            Text(
-                text = "Material: ${material ?: "Não informado"}"
             )
 
             Spacer(

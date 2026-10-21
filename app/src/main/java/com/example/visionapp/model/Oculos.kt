@@ -11,7 +11,5 @@ data class Oculos(
     val estoque: Int,
     val imagem: String,
     val ativo: Boolean,
-    val marca: String?,
-    val grau: String?,
-    val material: String?
+    val grau: String?
 )
