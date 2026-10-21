@@ -21,14 +21,28 @@ class PerfilViewModel : ViewModel() {
 
                 val resposta = repository.buscarPerfil()
 
+                println("STATUS PERFIL: ${resposta.code()}")
+
                 if (resposta.isSuccessful) {
+
+                    println("PERFIL OK")
+                    println("BODY: ${resposta.body()}")
+
                     usuario.value = resposta.body()
+
+                } else {
+
+                    println("ERRO PERFIL")
+                    println("CODIGO: ${resposta.code()}")
+                    println("ERRO: ${resposta.errorBody()?.string()}")
+
                 }
 
             } catch (e: Exception) {
-                e.printStackTrace()
-            }
 
+                e.printStackTrace()
+
+            }
         }
     }
 }
