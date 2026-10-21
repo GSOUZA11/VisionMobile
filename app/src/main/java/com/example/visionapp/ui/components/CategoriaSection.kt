@@ -1,5 +1,6 @@
 package com.example.visionapp.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -48,7 +49,10 @@ fun CategoriaSection(
 
             Text(
                 text = "Ver mais",
-                color = Color(0xFF149AF5)
+                color = Color(0xFF149AF5),
+                modifier = Modifier.clickable {
+                    onVerMais()
+                }
             )
         }
 
@@ -67,6 +71,7 @@ fun CategoriaSection(
                 ProdutoMiniCard(
                     nome = produto.nome,
                     preco = produto.preco,
+                    imagem = produto.imagem,
                     onSaibaMais = {
                         onProdutoClick(produto)
                     }

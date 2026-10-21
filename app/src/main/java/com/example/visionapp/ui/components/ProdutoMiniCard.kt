@@ -9,20 +9,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import androidx.compose.ui.layout.ContentScale
+import com.example.visionapp.utils.Constants
 
 @Composable
 fun ProdutoMiniCard(
     nome: String,
     preco: Double,
+    imagem: String,
     onSaibaMais: () -> Unit = {}
-) {
+){
 
     Card(
         modifier = Modifier
-            .width(170.dp)
+            .width(200.dp)
+            .height(280.dp)
             .padding(4.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -33,8 +39,20 @@ fun ProdutoMiniCard(
                 .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            // Imagem virá depois
+            AsyncImage(
+                model = "${Constants.BASE_URL}uploads/$imagem",
+                contentDescription = nome,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(120.dp)
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 12.dp,
+                            topEnd = 12.dp
+                        )
+                    ),
+                contentScale = ContentScale.Crop
+            )
 
             Spacer(
                 modifier = Modifier.height(12.dp)

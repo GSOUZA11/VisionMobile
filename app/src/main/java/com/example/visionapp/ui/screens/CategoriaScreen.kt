@@ -160,10 +160,18 @@ fun CategoriaScreen(navController: NavController) {
 
                 item {
 
+                    produtos.forEach {
+                        println("IMAGEM: ${it.imagem}")
+                    }
 
                     CategoriaSection(
                         categoria = categoria,
-                        produtos = produtos
+                        produtos = produtos,
+                        onVerMais = {
+
+                            println("Categoria clicada: $categoria")
+
+                        }
                     )
 
                     Spacer(
