@@ -28,7 +28,7 @@ fun ProdutoMiniCard(
     Card(
         modifier = Modifier
             .width(200.dp)
-            .height(280.dp)
+            .height(320.dp)
             .padding(4.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -77,6 +77,7 @@ fun ProdutoMiniCard(
 
             Button(
                 onClick = onSaibaMais,
+                modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFE67600)
                 )

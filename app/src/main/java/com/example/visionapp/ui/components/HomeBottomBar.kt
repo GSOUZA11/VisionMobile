@@ -1,8 +1,10 @@
 package com.example.visionapp.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridView
@@ -12,12 +14,14 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
 
@@ -35,9 +39,9 @@ fun HomeBottomBar(
                 vertical = 12.dp
             )
             .navigationBarsPadding(),
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(36.dp),
         shadowElevation = 12.dp,
-        color = Color(0xFF303030)
+        color = Color.Black
     ) {
 
         NavigationBar(
@@ -49,6 +53,13 @@ fun HomeBottomBar(
                 onClick = {
                     navController.navigate(Routes.HOME)
                 },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    indicatorColor = Color(0xFF149AF5),
+                    unselectedIconColor = Color.LightGray,
+                    unselectedTextColor = Color.LightGray
+                ),
                 icon = {
                     Icon(
                         Icons.Default.Home,
@@ -56,7 +67,10 @@ fun HomeBottomBar(
                     )
                 },
                 label = {
-                    Text("Início")
+                    Text(
+                        "Início",
+                        fontSize = 10.sp
+                    )
                 }
             )
 
@@ -65,6 +79,13 @@ fun HomeBottomBar(
                 onClick = {
                     navController.navigate(Routes.CATEGORIA)
                 },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    indicatorColor = Color(0xFF149AF5),
+                    unselectedIconColor = Color.LightGray,
+                    unselectedTextColor = Color.LightGray
+                ),
                 icon = {
                     Icon(
                         Icons.Default.GridView,
@@ -72,7 +93,10 @@ fun HomeBottomBar(
                     )
                 },
                 label = {
-                    Text("Categoria")
+                    Text(
+                        "Categoria",
+                        fontSize = 10.sp
+                    )
                 }
             )
 
@@ -81,6 +105,13 @@ fun HomeBottomBar(
                 onClick = {
                     navController.navigate(Routes.CARRINHO)
                 },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    indicatorColor = Color(0xFF149AF5),
+                    unselectedIconColor = Color.LightGray,
+                    unselectedTextColor = Color.LightGray
+                ),
                 icon = {
                     Icon(
                         Icons.Default.ShoppingCart,
@@ -88,7 +119,10 @@ fun HomeBottomBar(
                     )
                 },
                 label = {
-                    Text("Carrinho")
+                    Text(
+                        "Carrinho",
+                        fontSize = 10.sp
+                    )
                 }
             )
 
@@ -97,14 +131,25 @@ fun HomeBottomBar(
                 onClick = {
                     navController.navigate(Routes.MAIS)
                 },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    indicatorColor = Color(0xFF149AF5),
+                    unselectedIconColor = Color.LightGray,
+                    unselectedTextColor = Color.LightGray
+                ),
                 icon = {
+
                     Icon(
                         Icons.Default.Menu,
-                        contentDescription = "Mais"
+                        contentDescription = "Mais+"
                     )
                 },
                 label = {
-                    Text("Mais+")
+                    Text(
+                        "Mais+",
+                        fontSize = 10.sp
+                    )
                 }
             )
         }
