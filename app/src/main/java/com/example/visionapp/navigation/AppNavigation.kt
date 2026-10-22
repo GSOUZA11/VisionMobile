@@ -17,6 +17,7 @@ import com.example.visionapp.ui.screens.PerfilScreen
 import com.example.visionapp.ui.screens.ProdutosCategoriaScreen
 import com.example.visionapp.ui.screens.SplashScreen
 import com.example.visionapp.ui.screens.MinhasComprasScreen
+import com.example.visionapp.ui.screens.FavoritosScreen
 
 @Composable
 fun AppNavigation() {
@@ -82,6 +83,10 @@ fun AppNavigation() {
 
         composable(Routes.MINHAS_COMPRAS) {
             MinhasComprasScreen()
+        }
+
+        composable(Routes.FAVORITOS) {
+            FavoritosScreen()
         }
 
         composable(
