@@ -20,6 +20,8 @@ object Routes {
     const val PRODUTOS_CATEGORIA =
         "produtos_categoria/{categoria}"
 
+    const val MINHAS_COMPRAS = "minhas_compras"
+
     fun produtosCategoria(
         categoria: String
     ) = "produtos_categoria/$categoria"

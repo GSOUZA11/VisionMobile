@@ -9,11 +9,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.visionapp.viewmodel.PerfilViewModel
 
 @Composable
 fun EditarPerfilScreen(
     navController: NavController
 ) {
+
+    val perfilViewModel: PerfilViewModel = viewModel()
 
     var nome by remember {
         mutableStateOf("Gabriel Araujo Souza")
@@ -77,7 +81,17 @@ fun EditarPerfilScreen(
 
         Button(
             onClick = {
-                navController.popBackStack()
+
+                perfilViewModel.atualizarPerfil(
+                    nome = nome,
+                    email = email,
+                    telefone = telefone
+                ) {
+
+                    navController.popBackStack()
+
+                }
+
             },
             modifier = Modifier.fillMaxWidth()
         ) {

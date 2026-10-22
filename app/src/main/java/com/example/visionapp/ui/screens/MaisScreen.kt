@@ -130,7 +130,12 @@ fun MaisScreen(
 
                 MenuItem(
                     titulo = "Minhas Compras",
-                    icon = Icons.Default.ShoppingCart
+                    icon = Icons.Default.ShoppingCart,
+                    onClick = {
+                        navController.navigate(
+                            Routes.MINHAS_COMPRAS
+                        )
+                    }
                 )
                 MenuItem(
                     titulo = "Notificações",
