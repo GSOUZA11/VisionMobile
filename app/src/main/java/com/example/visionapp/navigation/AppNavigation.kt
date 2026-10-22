@@ -16,6 +16,7 @@ import com.example.visionapp.ui.screens.MaisScreen
 import com.example.visionapp.ui.screens.PerfilScreen
 import com.example.visionapp.ui.screens.ProdutosCategoriaScreen
 import com.example.visionapp.ui.screens.SplashScreen
+import com.example.visionapp.ui.screens.MinhasComprasScreen
 
 @Composable
 fun AppNavigation() {
@@ -77,6 +78,10 @@ fun AppNavigation() {
 
         composable(Routes.EDITAR_PERFIL) {
             EditarPerfilScreen(navController)
+        }
+
+        composable(Routes.MINHAS_COMPRAS) {
+            MinhasComprasScreen()
         }
 
         composable(
