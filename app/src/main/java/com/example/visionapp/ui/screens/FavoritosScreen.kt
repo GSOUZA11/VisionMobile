@@ -65,6 +65,18 @@ fun FavoritosScreen() {
                     Text(
                         text = "R$ ${produto.preco}"
                     )
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+
+                    Button(
+                        onClick = {
+                            favoritosViewModel.remover(produto)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("❌ Remover dos Favoritos")
+                    }
 
                 }
             }
