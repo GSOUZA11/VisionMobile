@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.visionapp.model.Usuario
 import com.example.visionapp.repository.PerfilRepository
 import kotlinx.coroutines.launch
+import com.example.visionapp.model.AtualizarPerfilRequest
 
 class PerfilViewModel : ViewModel() {
 
@@ -44,5 +45,46 @@ class PerfilViewModel : ViewModel() {
 
             }
         }
+    }
+    fun atualizarPerfil(
+        nome: String,
+        email: String,
+        telefone: String,
+        onSuccess: () -> Unit
+    ) {
+
+        viewModelScope.launch {
+
+            try {
+
+                val resposta = repository.atualizarPerfil(
+                    AtualizarPerfilRequest(
+                        nome = nome,
+                        email = email,
+                        telefone = telefone
+                    )
+                )
+
+                if (resposta.isSuccessful) {
+
+                    carregarPerfil()
+
+                    onSuccess()
+
+                } else {
+
+                    println("ERRO ATUALIZAR PERFIL")
+                    println("CODIGO: ${resposta.code()}")
+
+                }
+
+            } catch (e: Exception) {
+
+                e.printStackTrace()
+
+            }
+
+        }
+
     }
 }

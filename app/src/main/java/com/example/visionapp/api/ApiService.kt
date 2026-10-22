@@ -8,6 +8,8 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 import com.example.visionapp.model.Usuario
+import retrofit2.http.PUT
+import com.example.visionapp.model.AtualizarPerfilRequest
 
 
 interface ApiService {
@@ -22,5 +24,10 @@ interface ApiService {
 
     @GET("api/perfil")
     suspend fun buscarPerfil(): Response<Usuario>
+
+    @PUT("api/perfil")
+    suspend fun atualizarPerfil(
+        @Body request: AtualizarPerfilRequest
+    ): Response<Unit>
 
 }
