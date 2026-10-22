@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
 import com.example.visionapp.viewmodel.CarrinhoViewModel
+import com.example.visionapp.model.PedidoReal
+import com.example.visionapp.viewmodel.PedidoViewModel
 
 @Composable
 fun PagamentoScreen(
@@ -21,6 +23,8 @@ fun PagamentoScreen(
     val context = LocalContext.current
     val carrinhoViewModel =
         CarrinhoViewModel.getInstance()
+    val pedidoViewModel =
+        PedidoViewModel.instance
 
     Column(
         modifier = Modifier
@@ -46,6 +50,15 @@ fun PagamentoScreen(
                     Toast.LENGTH_SHORT
                 ).show()
 
+                pedidoViewModel.adicionarPedido(
+                    PedidoReal(
+                        id = pedidoViewModel.pedidos.size + 1,
+                        total = carrinhoViewModel.valorTotal(),
+                        quantidadeItens = carrinhoViewModel.totalItens(),
+                        status = "Pago"
+                    )
+                )
+
                 carrinhoViewModel.limparCarrinho()
 
                 navController.navigate(Routes.HOME)
@@ -68,6 +81,14 @@ fun PagamentoScreen(
                     Toast.LENGTH_SHORT
                 ).show()
 
+                pedidoViewModel.adicionarPedido(
+                    PedidoReal(
+                        id = pedidoViewModel.pedidos.size + 1,
+                        total = carrinhoViewModel.valorTotal(),
+                        quantidadeItens = carrinhoViewModel.totalItens(),
+                        status = "Pago"
+                    )
+                )
                 carrinhoViewModel.limparCarrinho()
 
                 navController.navigate(Routes.HOME)
@@ -90,6 +111,14 @@ fun PagamentoScreen(
                     Toast.LENGTH_SHORT
                 ).show()
 
+                pedidoViewModel.adicionarPedido(
+                    PedidoReal(
+                        id = pedidoViewModel.pedidos.size + 1,
+                        total = carrinhoViewModel.valorTotal(),
+                        quantidadeItens = carrinhoViewModel.totalItens(),
+                        status = "Pago"
+                    )
+                )
                 carrinhoViewModel.limparCarrinho()
 
                 navController.navigate(Routes.HOME)
