@@ -3,61 +3,46 @@ package com.example.visionapp.ui.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeHeader(
-    quantidadeProdutos: Int
+    nomeUsuario: String,
+    onNotificacaoClick: () -> Unit
 ) {
 
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Top
     ) {
 
         Column {
 
             Text(
-                text = "Olá, Vision!",
-                color = Color.Gray
+                text = "Olá, $nomeUsuario 👋",
+                style = MaterialTheme.typography.headlineSmall
             )
 
             Text(
-                text = "Bem vindo de volta!",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = "Produtos encontrados: $quantidadeProdutos"
+                text = "Encontre seus óculos ideais"
             )
         }
 
-        Row {
+        IconButton(
+            onClick = onNotificacaoClick
+        ) {
 
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    Icons.Default.Notifications,
-                    contentDescription = null
-                )
-            }
-
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    Icons.Default.Person,
-                    contentDescription = null
-                )
-            }
+            Icon(
+                Icons.Default.Notifications,
+                contentDescription = null
+            )
         }
     }
 }

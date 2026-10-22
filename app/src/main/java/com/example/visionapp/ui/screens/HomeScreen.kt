@@ -1,36 +1,38 @@
 package com.example.visionapp.ui.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionapp.viewmodel.OculosViewModel
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.compose.ui.platform.LocalContext
+import com.example.visionapp.model.Usuario
 import com.example.visionapp.navigation.Routes
-import coil.compose.AsyncImage
-import com.example.visionapp.ui.components.CategoriaCard
+import com.example.visionapp.ui.components.CategoriaChip
+import com.example.visionapp.ui.components.HomeBanner
 import com.example.visionapp.ui.components.HomeHeader
 import com.example.visionapp.ui.components.HomeBottomBar
-import com.example.visionapp.ui.components.SearchBar
+import com.example.visionapp.ui.components.ProdutoMiniCard
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    oculosViewModel: OculosViewModel = viewModel()
 ) {
-    val oculosViewModel: OculosViewModel = viewModel()
 
-    val context = LocalContext.current
+    val produtos = oculosViewModel.listaOculos.value
 
     LaunchedEffect(Unit) {
         oculosViewModel.carregarOculos()
@@ -45,174 +47,188 @@ fun HomeScreen(
             )
         }
 
-
     ) { padding ->
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
+                .padding(horizontal = 16.dp),
+
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
             item {
 
-                HomeHeader(
-                    quantidadeProdutos =
-                        oculosViewModel.listaOculos.value.size
+                Spacer(
+                    modifier = Modifier.height(8.dp)
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                HomeHeader(
+                    nomeUsuario = "Usuario",
+                    onNotificacaoClick = {
+                        // TODO
+                    }
+                )
+            }
 
-                SearchBar()
+            item {
 
-                Spacer(modifier = Modifier.height(20.dp))
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.fillMaxWidth(),
+
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = null
+                        )
+                    },
+
+                    placeholder = {
+                        Text("Buscar óculos...")
+                    },
+
+                    singleLine = true
+                )
+            }
+
+            item {
 
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(20.dp)
+                    modifier = Modifier.fillMaxWidth()
                 ) {
 
-                    Column(
-                        modifier = Modifier.padding(20.dp)
-                    ) {
+                    Text(
+                        text = "📍 Adicione um endereço de entrega",
+                        modifier = Modifier.padding(16.dp)
+                    )
 
-                        Text(
-                            text = "ÓCULOS QUE COMBINAM COM SEU ESTILO",
-                            color = Color(0xFF149AF5),
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(
-                            text = "Design moderno, proteção total."
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Button(
-                            onClick = {},
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFE67600)
-                            )
-                        ) {
-                            Text("Coleção Completa")
-                        }
-                    }
                 }
+            }
 
-                Spacer(modifier = Modifier.height(24.dp))
+            item {
+
+                HomeBanner(
+
+                    onDescubraClick = {
+                        navController.navigate(
+                            Routes.CATEGORIA
+                        )
+                    }
+
+                )
+            }
+
+            item {
 
                 Text(
                     text = "Categorias",
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.headlineSmall
                 )
+            }
 
-                Spacer(modifier = Modifier.height(16.dp))
+            item {
 
-                Row(
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+
+                    item {
+
+                        CategoriaChip(
+                            titulo = "Sol"
+                        ) {
+
+                            navController.navigate(
+                                Routes.CATEGORIA
+                            )
+                        }
+                    }
+
+                    item {
+
+                        CategoriaChip(
+                            titulo = "Grau"
+                        ) {
+
+                            navController.navigate(
+                                Routes.CATEGORIA
+                            )
+                        }
+                    }
+
+                    item {
+
+                        CategoriaChip(
+                            titulo = "Clássico"
+                        ) {
+
+                            navController.navigate(
+                                Routes.CATEGORIA
+                            )
+                        }
+                    }
+
+                    item {
+
+                        CategoriaChip(
+                            titulo = "Vintage"
+                        ) {
+
+                            navController.navigate(
+                                Routes.CATEGORIA
+                            )
+                        }
+                    }
+
+                    item {
+
+                        CategoriaChip(
+                            titulo = "Esportivo"
+                        ) {
+
+                            navController.navigate(
+                                Routes.CATEGORIA
+                            )
+                        }
+                    }
+                }
+            }
+
+            item {
+
+                Text(
+                    text = "Produtos em Destaque",
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
+
+            item {
+
+                LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
 
-                    CategoriaCard("Fashion")
-                    CategoriaCard("Fashion")
-                    CategoriaCard("Clássico")
+                    items(produtos.take(10)) { produto ->
+
+                        ProdutoMiniCard(
+                            nome = produto.nome,
+                            preco = produto.preco,
+                            imagem = produto.imagem
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
 
-                Text(
-                    text = "Ofertas Especiais",
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
             }
-                items(
-                    oculosViewModel.listaOculos.value
-                ) { oculos ->
 
-                    ProdutoOferta(
-                        nome = oculos.nome,
-                        preco = "R$ ${oculos.preco}",
-                        categoria = oculos.categoria,
-                        cor = oculos.cor,
-                        imagem = oculos.imagem,
-                        onClick = {
-                            navController.navigate("detalhes_produto/${oculos.id}")
-                        }
-                    )
-
-                    Spacer(
-                        modifier = Modifier.height(16.dp)
-                    )
-                }
-        }
-    }
-}
-
-
-
-@Composable
-fun ProdutoOferta(
-    nome: String,
-    preco: String,
-    categoria: String,
-    cor: String,
-    imagem: String,
-    onClick: () -> Unit
-
-) {
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                onClick()
-            },
-        shape = RoundedCornerShape(16.dp)
-    ) {
-
-
-    Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-
-            AsyncImage(
-                model = "http://10.39.45.29:3000/uploads/$imagem",
-                contentDescription = nome,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(180.dp)
-            )
-
-            Spacer(
-                modifier = Modifier.height(8.dp)
-            )
-
-            Text(
-                text = nome,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = "Categoria: $categoria"
-            )
-
-            Text(
-                text = "Cor: $cor"
-            )
-
-            Spacer(
-                modifier = Modifier.height(8.dp)
-            )
-
-            Text(
-                text = preco,
-                color = Color(0xFFE67600),
-                fontWeight = FontWeight.Bold
-            )
+            item {
+                Spacer(
+                    modifier = Modifier.height(24.dp)
+                )
+            }
         }
     }
 }
