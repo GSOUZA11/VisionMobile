@@ -22,6 +22,12 @@ object Routes {
 
     const val MINHAS_COMPRAS = "minhas_compras"
 
+    const val FAVORITOS = "favoritos"
+
+    const val CHECKOUT = "checkout"
+
+    const val PAGAMENTO = "pagamento"
+
     fun produtosCategoria(
         categoria: String
     ) = "produtos_categoria/$categoria"

@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.visionapp.viewmodel.CarrinhoViewModel
 import com.example.visionapp.navigation.Routes
+import com.example.visionapp.viewmodel.FavoritosViewModel
 
 @Composable
 fun DetalhesProdutoScreen(
@@ -29,6 +30,7 @@ fun DetalhesProdutoScreen(
     val oculosViewModel: OculosViewModel = viewModel()
     val context = LocalContext.current
     val carrinhoViewModel = CarrinhoViewModel.getInstance()
+    val favoritosViewModel = FavoritosViewModel.instance
 
     LaunchedEffect(Unit) {
         oculosViewModel.carregarOculos()
@@ -144,6 +146,30 @@ fun DetalhesProdutoScreen(
 
             Spacer(
                 modifier = Modifier.height(8.dp)
+            )
+            Button(
+                onClick = {
+
+                    produto?.let {
+
+                        favoritosViewModel.adicionar(it)
+
+                        Toast.makeText(
+                            context,
+                            "${it.nome} adicionado aos favoritos",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("❤️ Adicionar aos Favoritos")
+            }
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
             )
 
             Button(

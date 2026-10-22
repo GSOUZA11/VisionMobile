@@ -10,26 +10,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.visionapp.model.Pedido
+import com.example.visionapp.viewmodel.PedidoViewModel
 
 @Composable
 fun MinhasComprasScreen() {
 
-    val pedidos = listOf(
-        Pedido(
-            id = 1,
-            data = "22/10/2026",
-            total = 499.90,
-            status = "Entregue"
-        ),
-        Pedido(
-            id = 2,
-            data = "20/10/2026",
-            total = 299.90,
-            status = "Em transporte"
-        )
-    )
+    val pedidoViewModel =
+        PedidoViewModel.instance
 
+    val pedidos =
+        pedidoViewModel.pedidos
+
+    if (pedidos.isEmpty()) {
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            Text(
+                text = "Nenhuma compra realizada ainda."
+            )
+
+        }
+
+        return
+    }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -66,15 +72,14 @@ fun MinhasComprasScreen() {
                     )
 
                     Text(
-                        text = "Data: ${pedido.data}"
+                        text = "Itens: ${pedido.quantidadeItens}"
                     )
-
                     Text(
                         text = "Status: ${pedido.status}"
                     )
 
                     Text(
-                        text = "Total: R$ ${pedido.total}"
+                        text = "Valor: R$ ${pedido.total}"
                     )
                 }
             }

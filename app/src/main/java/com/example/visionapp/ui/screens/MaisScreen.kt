@@ -141,9 +141,15 @@ fun MaisScreen(
                     titulo = "Notificações",
                     icon = Icons.Default.Notifications
                 )
+
                 MenuItem(
                     titulo = "Favoritos",
-                    icon = Icons.Default.Favorite
+                    icon = Icons.Default.Favorite,
+                    onClick = {
+                        navController.navigate(
+                            Routes.FAVORITOS
+                        )
+                    }
                 )
 
                 Spacer(
