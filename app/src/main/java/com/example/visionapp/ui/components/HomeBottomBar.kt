@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -63,7 +64,8 @@ fun HomeBottomBar(
                 icon = {
                     Icon(
                         Icons.Default.Home,
-                        contentDescription = "Início"
+                        contentDescription = "Início",
+                        modifier = Modifier.size(24.dp)
                     )
                 },
                 label = {
@@ -89,7 +91,9 @@ fun HomeBottomBar(
                 icon = {
                     Icon(
                         Icons.Default.GridView,
-                        contentDescription = "Categoria"
+                        contentDescription = "Categoria",
+                        modifier = Modifier.size(24.dp)
+
                     )
                 },
                 label = {
@@ -115,7 +119,8 @@ fun HomeBottomBar(
                 icon = {
                     Icon(
                         Icons.Default.ShoppingCart,
-                        contentDescription = "Carrinho"
+                        contentDescription = "Carrinho",
+                        modifier = Modifier.size(24.dp)
                     )
                 },
                 label = {
@@ -142,13 +147,14 @@ fun HomeBottomBar(
 
                     Icon(
                         Icons.Default.Menu,
-                        contentDescription = "Mais+"
+                        contentDescription = "Mais+",
+                        modifier = Modifier.size(24.dp)
                     )
                 },
                 label = {
                     Text(
                         "Mais+",
-                        fontSize = 10.sp
+                        fontSize = 10.sp,
                     )
                 }
             )

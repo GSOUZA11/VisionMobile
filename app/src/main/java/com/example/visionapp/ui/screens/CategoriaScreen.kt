@@ -169,7 +169,9 @@ fun CategoriaScreen(navController: NavController) {
                         produtos = produtos,
                         onVerMais = {
 
-                            println("Categoria clicada: $categoria")
+                            navController.navigate(
+                                Routes.produtosCategoria(categoria)
+                            )
 
                         }
                     )

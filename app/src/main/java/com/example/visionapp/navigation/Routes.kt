@@ -16,4 +16,11 @@ object Routes {
 
     const val PERFIL = "perfil"
     const val EDITAR_PERFIL = "editar_perfil"
+
+    const val PRODUTOS_CATEGORIA =
+        "produtos_categoria/{categoria}"
+
+    fun produtosCategoria(
+        categoria: String
+    ) = "produtos_categoria/$categoria"
 }

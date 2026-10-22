@@ -14,6 +14,7 @@ import com.example.visionapp.ui.screens.HomeScreen
 import com.example.visionapp.ui.screens.LoginScreen
 import com.example.visionapp.ui.screens.MaisScreen
 import com.example.visionapp.ui.screens.PerfilScreen
+import com.example.visionapp.ui.screens.ProdutosCategoriaScreen
 import com.example.visionapp.ui.screens.SplashScreen
 
 @Composable
@@ -76,6 +77,21 @@ fun AppNavigation() {
 
         composable(Routes.EDITAR_PERFIL) {
             EditarPerfilScreen(navController)
+        }
+
+        composable(
+            route = Routes.PRODUTOS_CATEGORIA
+        ) { backStackEntry ->
+
+            val categoria =
+                backStackEntry.arguments
+                    ?.getString("categoria")
+                    ?: ""
+
+            ProdutosCategoriaScreen(
+                navController = navController,
+                categoria = categoria
+            )
         }
     }
 }
