@@ -12,6 +12,34 @@ class OculosViewModel : ViewModel() {
     val listaOculos =
         mutableStateOf<List<Oculos>>(emptyList())
 
+    var pesquisa = mutableStateOf("")
+        private set
+    var corSelecionada = mutableStateOf<String?>(null)
+        private set
+
+    var precoSelecionado = mutableStateOf<String?>(null)
+        private set
+
+    var ordenacaoSelecionada = mutableStateOf<String?>(null)
+        private set
+
+    fun atualizarPesquisa(valor: String) {
+        pesquisa.value = valor
+    }
+
+    fun atualizarCor(cor: String?) {
+        corSelecionada.value = cor
+    }
+
+    fun atualizarPreco(preco: String?) {
+        precoSelecionado.value = preco
+    }
+
+    fun atualizarOrdenacao(ordenacao: String?) {
+        ordenacaoSelecionada.value = ordenacao
+    }
+
+
     suspend fun carregarOculos() {
 
         try {
@@ -41,4 +69,5 @@ class OculosViewModel : ViewModel() {
 
         }
     }
+
 }

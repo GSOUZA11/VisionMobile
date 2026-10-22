@@ -11,8 +11,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FiltroBar(
-    onFiltroClick: () -> Unit = {},
-    onOrdenarClick: () -> Unit = {}
+    onFiltroClick: () -> Unit,
+    onOrdenarClick: () -> Unit
 ) {
 
     Row(

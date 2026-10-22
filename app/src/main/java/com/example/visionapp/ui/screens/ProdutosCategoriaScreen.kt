@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -15,9 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.visionapp.ui.components.FiltroBar
+import com.example.visionapp.ui.components.FiltroBottomSheet
+import com.example.visionapp.ui.components.OrdenacaoBottomSheet
 import com.example.visionapp.ui.components.ProdutoMiniCard
 import com.example.visionapp.viewmodel.OculosViewModel
-
+import kotlin.text.contains
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProdutosCategoriaScreen(
     navController: NavController,
@@ -25,10 +28,18 @@ fun ProdutosCategoriaScreen(
 ) {
 
     val oculosViewModel: OculosViewModel = viewModel()
-
-    var pesquisa by remember {
-        mutableStateOf("")
+    LaunchedEffect(Unit) {
+        oculosViewModel.carregarOculos()
     }
+
+    var mostrarFiltro by remember {
+        mutableStateOf(false)
+    }
+
+    var mostrarOrdenacao by remember {
+        mutableStateOf(false)
+    }
+
 
     val produtos = oculosViewModel.listaOculos.value
         .filter {
@@ -38,11 +49,104 @@ fun ProdutosCategoriaScreen(
             )
         }
         .filter {
-            it.nome.contains(
-                pesquisa,
-                ignoreCase = true
+            oculosViewModel.pesquisa.value.isBlank() ||
+                    it.nome.contains(
+                        oculosViewModel.pesquisa.value,
+                        ignoreCase = true
+                    )
+        }
+        .filter {
+
+            oculosViewModel.corSelecionada.value == null ||
+
+                    it.cor.equals(
+                        oculosViewModel.corSelecionada.value,
+                        ignoreCase = true
+                    )
+        }
+        .filter {
+
+            when (oculosViewModel.precoSelecionado.value) {
+
+                "ATE_200" ->
+                    it.preco <= 200.0
+
+                "200_500" ->
+                    it.preco in 200.0..500.0
+
+                "500_1000" ->
+                    it.preco in 500.0..1000.0
+
+                "ACIMA_1000" ->
+                    it.preco > 1000.0
+
+                else -> true
+            }
+        }
+
+        .let { lista ->
+
+            when (oculosViewModel.ordenacaoSelecionada.value) {
+
+                "MENOR_PRECO" ->
+                    lista.sortedBy { it.preco }
+
+                "MAIOR_PRECO" ->
+                    lista.sortedByDescending { it.preco }
+
+                "AZ" ->
+                    lista.sortedBy { it.nome }
+
+                "ZA" ->
+                    lista.sortedByDescending { it.nome }
+
+                else -> lista
+            }
+        }
+
+    if (mostrarFiltro) {
+
+        ModalBottomSheet(
+            onDismissRequest = {
+                mostrarFiltro = false
+            }
+        ) {
+
+            FiltroBottomSheet(
+                corSelecionada =
+                    oculosViewModel.corSelecionada.value,
+
+                precoSelecionado =
+                    oculosViewModel.precoSelecionado.value,
+
+                onCorSelecionada = {
+                    oculosViewModel.atualizarCor(it)
+                },
+
+                onPrecoSelecionado = {
+                    oculosViewModel.atualizarPreco(it)
+                }
             )
         }
+    }
+    if (mostrarOrdenacao) {
+
+        ModalBottomSheet(
+            onDismissRequest = {
+                mostrarOrdenacao = false
+            }
+        ) {
+
+            OrdenacaoBottomSheet(
+                ordenacaoSelecionada =
+                    oculosViewModel.ordenacaoSelecionada.value,
+
+                onOrdenacaoSelecionada = {
+                    oculosViewModel.atualizarOrdenacao(it)
+                }
+            )
+        }
+    }
 
     Scaffold { padding ->
 
@@ -64,7 +168,7 @@ fun ProdutosCategoriaScreen(
                     }
                 ) {
                     Icon(
-                        Icons.Default.ArrowBack,
+                        Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null
                     )
                 }
@@ -97,9 +201,9 @@ fun ProdutosCategoriaScreen(
             )
 
             OutlinedTextField(
-                value = pesquisa,
+                value = oculosViewModel.pesquisa.value,
                 onValueChange = {
-                    pesquisa = it
+                    oculosViewModel.atualizarPesquisa(it)
                 },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
@@ -119,12 +223,13 @@ fun ProdutosCategoriaScreen(
 
             FiltroBar(
                 onFiltroClick = {
-                    // Próxima etapa
+                    mostrarFiltro = true
                 },
                 onOrdenarClick = {
-                    // Próxima etapa
+                    mostrarOrdenacao = true
                 }
             )
+
 
             Spacer(
                 modifier = Modifier.height(16.dp)
