@@ -4,8 +4,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.LaunchedEffect
@@ -13,12 +12,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionapp.viewmodel.OculosViewModel
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.visionapp.model.Usuario
 import com.example.visionapp.navigation.Routes
-import com.example.visionapp.ui.components.CategoriaChip
 import com.example.visionapp.ui.components.HomeBanner
 import com.example.visionapp.ui.components.HomeHeader
 import com.example.visionapp.ui.components.HomeBottomBar
@@ -37,7 +38,9 @@ fun HomeScreen(
     LaunchedEffect(Unit) {
         oculosViewModel.carregarOculos()
     }
-
+    var busca by remember {
+        mutableStateOf("")
+    }
     Scaffold(
 
         bottomBar = {
@@ -75,9 +78,14 @@ fun HomeScreen(
             item {
 
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    modifier = Modifier.fillMaxWidth(),
+                    value = busca,
+                    onValueChange = {
+                        busca = it
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(16.dp),
 
                     leadingIcon = {
                         Icon(
@@ -97,7 +105,11 @@ fun HomeScreen(
             item {
 
                 Card(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 ) {
 
                     Text(
@@ -111,13 +123,16 @@ fun HomeScreen(
             item {
 
                 HomeBanner(
-
                     onDescubraClick = {
                         navController.navigate(
                             Routes.CATEGORIA
                         )
+
                     }
 
+                )
+                Spacer(
+                    modifier = Modifier.height(8.dp)
                 )
             }
 
@@ -125,7 +140,8 @@ fun HomeScreen(
 
                 Text(
                     text = "Categorias",
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineMedium
+
                 )
             }
 
@@ -136,79 +152,79 @@ fun HomeScreen(
                 ) {
 
                     item {
-
-                        CategoriaChip(
-                            titulo = "Sol"
-                        ) {
-
-                            navController.navigate(
-                                Routes.CATEGORIA
-                            )
-                        }
+                        AssistChip(
+                            onClick = {
+                                navController.navigate(Routes.CATEGORIA)
+                            },
+                            label = {
+                                Text("Sol")
+                            }
+                        )
                     }
 
                     item {
-
-                        CategoriaChip(
-                            titulo = "Grau"
-                        ) {
-
-                            navController.navigate(
-                                Routes.CATEGORIA
-                            )
-                        }
+                        AssistChip(
+                            onClick = {
+                                navController.navigate(Routes.CATEGORIA)
+                            },
+                            label = {
+                                Text("Grau")
+                            }
+                        )
                     }
 
                     item {
-
-                        CategoriaChip(
-                            titulo = "Clássico"
-                        ) {
-
-                            navController.navigate(
-                                Routes.CATEGORIA
-                            )
-                        }
+                        AssistChip(
+                            onClick = {
+                                navController.navigate(Routes.CATEGORIA)
+                            },
+                            label = {
+                                Text("Clássico")
+                            }
+                        )
                     }
 
                     item {
-
-                        CategoriaChip(
-                            titulo = "Vintage"
-                        ) {
-
-                            navController.navigate(
-                                Routes.CATEGORIA
-                            )
-                        }
+                        AssistChip(
+                            onClick = {
+                                navController.navigate(Routes.CATEGORIA)
+                            },
+                            label = {
+                                Text("Vintage")
+                            }
+                        )
                     }
 
                     item {
-
-                        CategoriaChip(
-                            titulo = "Esportivo"
-                        ) {
-
-                            navController.navigate(
-                                Routes.CATEGORIA
-                            )
-                        }
+                        AssistChip(
+                            onClick = {
+                                navController.navigate(Routes.CATEGORIA)
+                            },
+                            label = {
+                                Text("Esportivo")
+                            }
+                        )
                     }
                 }
             }
+
+
+
+
 
             item {
 
                 Text(
                     text = "Produtos em Destaque",
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineMedium
                 )
             }
 
             item {
 
                 LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(horizontal = 4.dp)
                 ) {
 
                     items(produtos.take(10)) { produto ->
@@ -220,15 +236,9 @@ fun HomeScreen(
                         )
                     }
                 }
-
-
-            }
-
-            item {
-                Spacer(
-                    modifier = Modifier.height(24.dp)
-                )
             }
         }
     }
 }
+
+
