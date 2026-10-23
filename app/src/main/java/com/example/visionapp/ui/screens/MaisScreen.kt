@@ -139,7 +139,12 @@ fun MaisScreen(
                 )
                 MenuItem(
                     titulo = "Notificações",
-                    icon = Icons.Default.Notifications
+                    icon = Icons.Default.Notifications,
+                    onClick = {
+                        navController.navigate(
+                            Routes.NOTIFICACOES
+                        )
+                    }
                 )
 
                 MenuItem(
@@ -164,7 +169,12 @@ fun MaisScreen(
 
                 MenuItem(
                     titulo = "Configuração",
-                    icon = Icons.Default.Settings
+                    icon = Icons.Default.Settings,
+                    onClick = {
+                        navController.navigate(
+                            Routes.CONFIGURACOES
+                        )
+                    }
                 )
                 MenuItem(
                     titulo = "Termos e Condições",

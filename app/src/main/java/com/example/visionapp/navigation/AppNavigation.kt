@@ -21,6 +21,7 @@ import com.example.visionapp.ui.screens.FavoritosScreen
 import com.example.visionapp.ui.screens.CheckoutScreen
 import com.example.visionapp.ui.screens.PagamentoScreen
 import com.example.visionapp.ui.screens.NotificacoesScreen
+import com.example.visionapp.ui.screens.ConfiguracoesScreen
 
 @Composable
 fun AppNavigation() {
@@ -102,6 +103,10 @@ fun AppNavigation() {
 
         composable(Routes.NOTIFICACOES) {
             NotificacoesScreen()
+        }
+
+        composable(Routes.CONFIGURACOES) {
+            ConfiguracoesScreen()
         }
         composable(
             route = Routes.PRODUTOS_CATEGORIA
