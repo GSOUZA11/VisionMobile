@@ -35,11 +35,27 @@ fun HomeScreen(
 
     val produtos = oculosViewModel.listaOculos.value
 
-    LaunchedEffect(Unit) {
-        oculosViewModel.carregarOculos()
-    }
     var busca by remember {
         mutableStateOf("")
+    }
+
+    val produtosFiltrados = produtos.filter {
+
+        it.nome.contains(
+            busca,
+            ignoreCase = true
+        ) ||
+
+                it.categoria.contains(
+                    busca,
+                    ignoreCase = true
+                )
+
+    }
+
+
+    LaunchedEffect(Unit) {
+        oculosViewModel.carregarOculos()
     }
     Scaffold(
 
@@ -148,6 +164,7 @@ fun HomeScreen(
             item {
 
                 LazyRow(
+
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
 
@@ -221,13 +238,21 @@ fun HomeScreen(
             }
 
             item {
+                if (
+                    busca.isNotEmpty() &&
+                    produtosFiltrados.isEmpty()
+                ) {
 
+                    Text(
+                        text = "Nenhum produto encontrado."
+                    )
+                }
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     contentPadding = PaddingValues(horizontal = 4.dp)
                 ) {
 
-                    items(produtos.take(10)) { produto ->
+                    items(produtosFiltrados.take(10)) { produto ->
 
                         ProdutoMiniCard(
                             nome = produto.nome,

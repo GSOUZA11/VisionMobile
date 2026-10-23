@@ -10,11 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SearchBar() {
+fun SearchBar(
+    texto: String,
+    onTextoChange: (String) -> Unit
+) {
 
     OutlinedTextField(
-        value = "",
-        onValueChange = {},
+        value = texto,
+        onValueChange = onTextoChange,
         modifier = Modifier.fillMaxWidth(),
         leadingIcon = {
             Icon(
