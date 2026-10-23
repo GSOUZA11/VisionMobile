@@ -86,7 +86,9 @@ fun HomeScreen(
                 HomeHeader(
                     nomeUsuario = "Usuario",
                     onNotificacaoClick = {
-                        // TODO
+                        navController.navigate(
+                            Routes.NOTIFICACOES
+                        )
                     }
                 )
             }

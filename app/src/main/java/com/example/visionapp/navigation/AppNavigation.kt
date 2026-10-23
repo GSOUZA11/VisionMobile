@@ -20,6 +20,7 @@ import com.example.visionapp.ui.screens.MinhasComprasScreen
 import com.example.visionapp.ui.screens.FavoritosScreen
 import com.example.visionapp.ui.screens.CheckoutScreen
 import com.example.visionapp.ui.screens.PagamentoScreen
+import com.example.visionapp.ui.screens.NotificacoesScreen
 
 @Composable
 fun AppNavigation() {
@@ -99,6 +100,9 @@ fun AppNavigation() {
             PagamentoScreen(navController)
         }
 
+        composable(Routes.NOTIFICACOES) {
+            NotificacoesScreen()
+        }
         composable(
             route = Routes.PRODUTOS_CATEGORIA
         ) { backStackEntry ->

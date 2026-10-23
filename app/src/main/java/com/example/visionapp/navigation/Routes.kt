@@ -28,6 +28,8 @@ object Routes {
 
     const val PAGAMENTO = "pagamento"
 
+    const val NOTIFICACOES = "notificacoes"
+
     fun produtosCategoria(
         categoria: String
     ) = "produtos_categoria/$categoria"
