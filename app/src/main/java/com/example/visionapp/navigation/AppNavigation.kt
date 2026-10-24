@@ -27,7 +27,9 @@ import com.example.visionapp.ui.screens.SobreNosScreen
 import com.example.visionapp.ui.screens.EnderecoScreen
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(
+    onThemeChanged: (Boolean) -> Unit
+) {
 
     val navController = rememberNavController()
 
@@ -109,7 +111,9 @@ fun AppNavigation() {
         }
 
         composable(Routes.CONFIGURACOES) {
-            ConfiguracoesScreen()
+            ConfiguracoesScreen(
+                onThemeChanged = onThemeChanged
+            )
         }
 
         composable(Routes.FALE_CONOSCO) {

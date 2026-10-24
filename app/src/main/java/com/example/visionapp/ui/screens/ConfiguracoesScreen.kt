@@ -9,16 +9,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import com.example.visionapp.utils.ThemeManager
 
 @Composable
-fun ConfiguracoesScreen() {
+fun ConfiguracoesScreen(
+    onThemeChanged: (Boolean) -> Unit
+) {
 
     var notificacoes by remember {
         mutableStateOf(true)
     }
 
+    val context = LocalContext.current
+
+    val themeManager = ThemeManager(context)
+
     var temaEscuro by remember {
-        mutableStateOf(false)
+        mutableStateOf(
+            themeManager.obterTemaEscuro()
+        )
     }
 
     Column(
@@ -78,7 +88,12 @@ fun ConfiguracoesScreen() {
                 Switch(
                     checked = temaEscuro,
                     onCheckedChange = {
+
                         temaEscuro = it
+
+                        themeManager.salvarTemaEscuro(it)
+
+                        onThemeChanged(it)
                     }
                 )
             }
