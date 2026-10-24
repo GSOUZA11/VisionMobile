@@ -10,11 +10,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
 import com.example.visionapp.utils.ThemeManager
 
 @Composable
 fun ConfiguracoesScreen(
-    onThemeChanged: (Boolean) -> Unit
+    onThemeChanged: (Boolean) -> Unit,
+    navController: NavController
 ) {
 
     var notificacoes by remember {
@@ -155,7 +158,12 @@ fun ConfiguracoesScreen(
 
         // Política de Privacidade
         Card(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                navController.navigate(
+                    Routes.POLITICA_PRIVACIDADE
+                )
+            }
         ) {
             Column(
                 modifier = Modifier.padding(16.dp)
@@ -182,7 +190,12 @@ fun ConfiguracoesScreen(
 
         // Termos de Uso
         Card(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                navController.navigate(
+                    Routes.TERMOS_USO
+                )
+            }
         ) {
             Column(
                 modifier = Modifier.padding(16.dp)

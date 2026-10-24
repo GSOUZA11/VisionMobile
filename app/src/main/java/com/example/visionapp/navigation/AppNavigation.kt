@@ -25,6 +25,8 @@ import com.example.visionapp.ui.screens.ConfiguracoesScreen
 import com.example.visionapp.ui.screens.FaleConoscoScreen
 import com.example.visionapp.ui.screens.SobreNosScreen
 import com.example.visionapp.ui.screens.EnderecoScreen
+import com.example.visionapp.ui.screens.PoliticaPrivacidadeScreen
+import com.example.visionapp.ui.screens.TermosUsoScreen
 
 @Composable
 fun AppNavigation(
@@ -112,7 +114,8 @@ fun AppNavigation(
 
         composable(Routes.CONFIGURACOES) {
             ConfiguracoesScreen(
-                onThemeChanged = onThemeChanged
+                onThemeChanged = onThemeChanged,
+                navController = navController
             )
         }
 
@@ -126,6 +129,14 @@ fun AppNavigation(
 
         composable(Routes.ENDERECO) {
             EnderecoScreen()
+        }
+
+        composable(Routes.POLITICA_PRIVACIDADE) {
+            PoliticaPrivacidadeScreen()
+        }
+
+        composable(Routes.TERMOS_USO) {
+            TermosUsoScreen()
         }
 
         composable(

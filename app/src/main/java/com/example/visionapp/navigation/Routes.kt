@@ -38,6 +38,10 @@ object Routes {
 
     const val ENDERECO = "endereco"
 
+    const val POLITICA_PRIVACIDADE = "politica_privacidade"
+
+    const val TERMOS_USO = "termos_uso"
+
     fun produtosCategoria(
         categoria: String
     ) = "produtos_categoria/$categoria"
