@@ -24,6 +24,8 @@ import com.example.visionapp.ui.components.HomeBanner
 import com.example.visionapp.ui.components.HomeHeader
 import com.example.visionapp.ui.components.HomeBottomBar
 import com.example.visionapp.ui.components.ProdutoMiniCard
+import androidx.compose.ui.platform.LocalContext
+import com.example.visionapp.utils.AddressManager
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,6 +36,13 @@ fun HomeScreen(
 ) {
 
     val produtos = oculosViewModel.listaOculos.value
+
+    val context = LocalContext.current
+
+    val enderecoSalvo =
+        AddressManager(context)
+            .obterEndereco()
+
 
     var busca by remember {
         mutableStateOf("")
@@ -123,7 +132,13 @@ fun HomeScreen(
             item {
 
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    onClick = {
+                        navController.navigate(
+                            Routes.ENDERECO
+                        )
+                    },
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant
                     ),
@@ -131,7 +146,12 @@ fun HomeScreen(
                 ) {
 
                     Text(
-                        text = "📍 Adicione um endereço de entrega",
+                        text =
+                            if (enderecoSalvo.isNotBlank()) {
+                                "📍 $enderecoSalvo"
+                            } else {
+                                "📍 Adicione um endereço de entrega"
+                            },
                         modifier = Modifier.padding(16.dp)
                     )
 

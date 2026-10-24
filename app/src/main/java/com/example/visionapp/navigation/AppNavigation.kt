@@ -24,6 +24,7 @@ import com.example.visionapp.ui.screens.NotificacoesScreen
 import com.example.visionapp.ui.screens.ConfiguracoesScreen
 import com.example.visionapp.ui.screens.FaleConoscoScreen
 import com.example.visionapp.ui.screens.SobreNosScreen
+import com.example.visionapp.ui.screens.EnderecoScreen
 
 @Composable
 fun AppNavigation() {
@@ -117,6 +118,10 @@ fun AppNavigation() {
 
         composable(Routes.SOBRE_NOS) {
             SobreNosScreen()
+        }
+
+        composable(Routes.ENDERECO) {
+            EnderecoScreen()
         }
 
         composable(
