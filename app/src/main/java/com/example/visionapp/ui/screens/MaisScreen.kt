@@ -18,6 +18,10 @@ import com.example.visionapp.navigation.Routes
 import com.example.visionapp.ui.components.HomeBottomBar
 import com.example.visionapp.ui.components.MenuItem
 import com.example.visionapp.utils.TokenManager
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 @Composable
 fun MaisScreen(
@@ -25,6 +29,10 @@ fun MaisScreen(
 ) {
 
     val context = LocalContext.current
+
+    var mostrarDialogLogout by remember {
+        mutableStateOf(false)
+    }
 
     Scaffold(
         bottomBar = {
@@ -201,6 +209,34 @@ fun MaisScreen(
 
                 Button(
                     onClick = {
+                        mostrarDialogLogout = true
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Sair")
+                }
+            }
+        }
+    }
+    if (mostrarDialogLogout) {
+
+        AlertDialog(
+            onDismissRequest = {
+                mostrarDialogLogout = false
+            },
+
+            title = {
+                Text("Sair")
+            },
+
+            text = {
+                Text("Deseja realmente sair da conta?")
+            },
+
+            confirmButton = {
+
+                TextButton(
+                    onClick = {
 
                         TokenManager(context)
                             .clearToken()
@@ -211,12 +247,24 @@ fun MaisScreen(
                             popUpTo(0)
                         }
 
-                    },
-                    modifier = Modifier.fillMaxWidth()
+                        mostrarDialogLogout = false
+                    }
                 ) {
                     Text("Sair")
                 }
+            },
+
+            dismissButton = {
+
+                TextButton(
+                    onClick = {
+                        mostrarDialogLogout = false
+                    }
+                ) {
+                    Text("Cancelar")
+                }
             }
-        }
+        )
     }
+
 }
