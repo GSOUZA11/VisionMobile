@@ -102,7 +102,12 @@ fun MaisScreen(
                 )
                 MenuItem(
                     titulo = "Fale Conosco",
-                    icon = Icons.Default.Email
+                    icon = Icons.Default.Email,
+                    onClick = {
+                        navController.navigate(
+                            Routes.FALE_CONOSCO
+                        )
+                    }
                 )
                 MenuItem(
                     titulo = "Ajuda",
