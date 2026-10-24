@@ -13,6 +13,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
 import com.example.visionapp.utils.ThemeManager
+import com.example.visionapp.utils.LanguageManager
+import androidx.compose.ui.platform.LocalContext
+
 
 @Composable
 fun ConfiguracoesScreen(
@@ -25,6 +28,19 @@ fun ConfiguracoesScreen(
     }
 
     val context = LocalContext.current
+
+    val languageManager =
+        LanguageManager(context)
+
+    var idioma by remember {
+        mutableStateOf(
+            languageManager.obterIdioma()
+        )
+    }
+
+    var expandirIdiomas by remember {
+        mutableStateOf(false)
+    }
 
     val themeManager = ThemeManager(context)
 
@@ -110,8 +126,11 @@ fun ConfiguracoesScreen(
         Card(
             modifier = Modifier.fillMaxWidth()
         ) {
+
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
             ) {
 
                 Text(
@@ -120,10 +139,56 @@ fun ConfiguracoesScreen(
                 )
 
                 Spacer(
-                    modifier = Modifier.height(4.dp)
+                    modifier = Modifier.height(8.dp)
                 )
 
-                Text("Português (Brasil)")
+                TextButton(
+                    onClick = {
+                        expandirIdiomas = true
+                    }
+                ) {
+                    Text(idioma)
+                }
+
+                DropdownMenu(
+                    expanded = expandirIdiomas,
+                    onDismissRequest = {
+                        expandirIdiomas = false
+                    }
+                ) {
+
+                    DropdownMenuItem(
+                        text = {
+                            Text("Português")
+                        },
+                        onClick = {
+
+                            idioma = "Português"
+
+                            languageManager.salvarIdioma(
+                                idioma
+                            )
+
+                            expandirIdiomas = false
+                        }
+                    )
+
+                    DropdownMenuItem(
+                        text = {
+                            Text("English")
+                        },
+                        onClick = {
+
+                            idioma = "English"
+
+                            languageManager.salvarIdioma(
+                                idioma
+                            )
+
+                            expandirIdiomas = false
+                        }
+                    )
+                }
             }
         }
 
