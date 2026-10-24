@@ -23,6 +23,7 @@ import com.example.visionapp.ui.screens.PagamentoScreen
 import com.example.visionapp.ui.screens.NotificacoesScreen
 import com.example.visionapp.ui.screens.ConfiguracoesScreen
 import com.example.visionapp.ui.screens.FaleConoscoScreen
+import com.example.visionapp.ui.screens.SobreNosScreen
 
 @Composable
 fun AppNavigation() {
@@ -112,6 +113,10 @@ fun AppNavigation() {
 
         composable(Routes.FALE_CONOSCO) {
             FaleConoscoScreen()
+        }
+
+        composable(Routes.SOBRE_NOS) {
+            SobreNosScreen()
         }
 
         composable(

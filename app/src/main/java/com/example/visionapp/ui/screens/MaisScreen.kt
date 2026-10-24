@@ -186,7 +186,13 @@ fun MaisScreen(
                     icon = Icons.Default.Description
                 )
                 MenuItem(
-                    titulo = "Sobre Nós"
+                    titulo = "Sobre Nós",
+                    icon = Icons.Default.Info,
+                    onClick = {
+                        navController.navigate(
+                            Routes.SOBRE_NOS
+                        )
+                    }
                 )
 
                 Spacer(

@@ -34,6 +34,8 @@ object Routes {
 
     const val FALE_CONOSCO = "fale_conosco"
 
+    const val SOBRE_NOS = "sobre_nos"
+
     fun produtosCategoria(
         categoria: String
     ) = "produtos_categoria/$categoria"
