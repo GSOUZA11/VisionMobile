@@ -13,10 +13,13 @@ import androidx.compose.ui.unit.dp
 import com.example.visionapp.viewmodel.PedidoViewModel
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
+import androidx.compose.material3.Button
+
 
 @Composable
 fun MinhasComprasScreen(
-    navController: NavController
+    navController: NavController,
+    onLimparHistorico: () -> Unit
 ){
 
     val pedidoViewModel =
@@ -51,6 +54,24 @@ fun MinhasComprasScreen(
             Text(
                 text = "Minhas Compras",
                 style = MaterialTheme.typography.headlineMedium
+            )
+
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            Button(
+                onClick = {
+                    onLimparHistorico()
+
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Excluir Todo Histórico")
+            }
+
+            Spacer(
+                modifier = Modifier.height(16.dp)
             )
 
             Spacer(

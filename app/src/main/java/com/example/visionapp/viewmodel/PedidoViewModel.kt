@@ -28,6 +28,10 @@ class PedidoViewModel : ViewModel() {
     ) {
         pedidos.remove(pedido)
     }
+
+    fun limparHistorico() {
+        pedidos.clear()
+    }
     companion object {
 
         val instance =

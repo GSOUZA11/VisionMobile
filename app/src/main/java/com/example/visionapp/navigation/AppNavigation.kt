@@ -97,8 +97,22 @@ fun AppNavigation(
         }
 
         composable(Routes.MINHAS_COMPRAS) {
+
             MinhasComprasScreen(
-                navController = navController
+                navController = navController,
+
+                onLimparHistorico = {
+
+                    val pedidoManager =
+                        PedidoManager(AppContext.context)
+
+                    PedidoViewModel.instance
+                        .limparHistorico()
+
+                    pedidoManager.salvarPedidos(
+                        PedidoViewModel.instance.pedidos.toList()
+                    )
+                }
             )
         }
 
@@ -114,93 +128,93 @@ fun AppNavigation(
             PagamentoScreen(navController)
         }
 
-        composable(Routes.NOTIFICACOES) {
-            NotificacoesScreen()
-        }
+            composable(Routes.NOTIFICACOES) {
+                NotificacoesScreen()
+            }
 
-        composable(Routes.CONFIGURACOES) {
-            ConfiguracoesScreen(
-                onThemeChanged = onThemeChanged,
-                navController = navController
-            )
-        }
+            composable(Routes.CONFIGURACOES) {
+                ConfiguracoesScreen(
+                    onThemeChanged = onThemeChanged,
+                    navController = navController
+                )
+            }
 
-        composable(Routes.FALE_CONOSCO) {
-            FaleConoscoScreen()
-        }
+            composable(Routes.FALE_CONOSCO) {
+                FaleConoscoScreen()
+            }
 
-        composable(Routes.SOBRE_NOS) {
-            SobreNosScreen()
-        }
+            composable(Routes.SOBRE_NOS) {
+                SobreNosScreen()
+            }
 
-        composable(Routes.ENDERECO) {
-            EnderecoScreen()
-        }
+            composable(Routes.ENDERECO) {
+                EnderecoScreen()
+            }
 
-        composable(Routes.POLITICA_PRIVACIDADE) {
-            PoliticaPrivacidadeScreen()
-        }
+            composable(Routes.POLITICA_PRIVACIDADE) {
+                PoliticaPrivacidadeScreen()
+            }
 
-        composable(Routes.TERMOS_USO) {
-            TermosUsoScreen()
-        }
+            composable(Routes.TERMOS_USO) {
+                TermosUsoScreen()
+            }
 
-        composable(
-            route = Routes.DETALHE_PEDIDO
-        ) { backStackEntry ->
+            composable(
+                route = Routes.DETALHE_PEDIDO
+            ) { backStackEntry ->
 
-            val id =
-                backStackEntry.arguments
-                    ?.getString("id")
-                    ?.toIntOrNull()
+                val id =
+                    backStackEntry.arguments
+                        ?.getString("id")
+                        ?.toIntOrNull()
 
-            val pedido =
-                PedidoViewModel.instance.pedidos
-                    .find { it.id == id }
+                val pedido =
+                    PedidoViewModel.instance.pedidos
+                        .find { it.id == id }
 
-            pedido?.let {
+                pedido?.let {
 
-                DetalhePedidoScreen(
-                    pedido = it,
+                    DetalhePedidoScreen(
+                        pedido = it,
 
-                    onExcluirPedido = {
+                        onExcluirPedido = {
 
-                        val pedidoManager =
-                            PedidoManager(AppContext.context)
+                            val pedidoManager =
+                                PedidoManager(AppContext.context)
 
-                        PedidoViewModel.instance
-                            .removerPedido(it)
+                            PedidoViewModel.instance
+                                .removerPedido(it)
 
-                        pedidoManager.salvarPedidos(
-                            PedidoViewModel.instance.pedidos.toList()
-                        )
+                            pedidoManager.salvarPedidos(
+                                PedidoViewModel.instance.pedidos.toList()
+                            )
 
-                        navController.popBackStack()
-                    },
+                            navController.popBackStack()
+                        },
 
-                    onComprarNovamente = {
+                        onComprarNovamente = {
 
-                        navController.navigate(
-                            Routes.HOME
-                        )
-                    }
+                            navController.navigate(
+                                Routes.HOME
+                            )
+                        }
+                    )
+                }
+            }
+
+            composable(
+                route = Routes.PRODUTOS_CATEGORIA
+            ) { backStackEntry ->
+
+                val categoria =
+                    backStackEntry.arguments
+                        ?.getString("categoria")
+                        ?: ""
+
+                ProdutosCategoriaScreen(
+                    navController = navController,
+                    categoria = categoria
                 )
             }
         }
-
-        composable(
-            route = Routes.PRODUTOS_CATEGORIA
-        ) { backStackEntry ->
-
-            val categoria =
-                backStackEntry.arguments
-                    ?.getString("categoria")
-                    ?: ""
-
-            ProdutosCategoriaScreen(
-                navController = navController,
-                categoria = categoria
-            )
-        }
     }
-}
