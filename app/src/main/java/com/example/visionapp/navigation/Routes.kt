@@ -42,7 +42,12 @@ object Routes {
 
     const val TERMOS_USO = "termos_uso"
 
+    const val DETALHE_PEDIDO = "detalhe_pedido/{id}"
+
     fun produtosCategoria(
         categoria: String
     ) = "produtos_categoria/$categoria"
+
+    fun detalhePedido(id: Int) =
+        "detalhe_pedido/$id"
 }

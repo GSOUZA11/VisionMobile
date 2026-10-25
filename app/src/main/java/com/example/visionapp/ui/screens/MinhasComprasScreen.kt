@@ -11,9 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.visionapp.viewmodel.PedidoViewModel
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
 
 @Composable
-fun MinhasComprasScreen() {
+fun MinhasComprasScreen(
+    navController: NavController
+){
 
     val pedidoViewModel =
         PedidoViewModel.instance
@@ -57,6 +61,13 @@ fun MinhasComprasScreen() {
         items(pedidos) { pedido ->
 
             Card(
+                onClick = {
+                    navController.navigate(
+                        Routes.detalhePedido(
+                            pedido.id
+                        )
+                    )
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 12.dp)

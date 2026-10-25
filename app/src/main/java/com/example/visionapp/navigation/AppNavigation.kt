@@ -27,6 +27,8 @@ import com.example.visionapp.ui.screens.SobreNosScreen
 import com.example.visionapp.ui.screens.EnderecoScreen
 import com.example.visionapp.ui.screens.PoliticaPrivacidadeScreen
 import com.example.visionapp.ui.screens.TermosUsoScreen
+import com.example.visionapp.ui.screens.DetalhePedidoScreen
+import com.example.visionapp.viewmodel.PedidoViewModel
 
 @Composable
 fun AppNavigation(
@@ -93,7 +95,9 @@ fun AppNavigation(
         }
 
         composable(Routes.MINHAS_COMPRAS) {
-            MinhasComprasScreen()
+            MinhasComprasScreen(
+                navController = navController
+            )
         }
 
         composable(Routes.FAVORITOS) {
@@ -137,6 +141,27 @@ fun AppNavigation(
 
         composable(Routes.TERMOS_USO) {
             TermosUsoScreen()
+        }
+
+        composable(
+            route = Routes.DETALHE_PEDIDO
+        ) { backStackEntry ->
+
+            val id =
+                backStackEntry.arguments
+                    ?.getString("id")
+                    ?.toIntOrNull()
+
+            val pedido =
+                PedidoViewModel.instance.pedidos
+                    .find { it.id == id }
+
+            pedido?.let {
+
+                DetalhePedidoScreen(
+                    pedido = it
+                )
+            }
         }
 
         composable(

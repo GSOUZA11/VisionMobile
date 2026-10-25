@@ -15,6 +15,10 @@ import com.example.visionapp.viewmodel.CarrinhoViewModel
 import com.example.visionapp.model.PedidoReal
 import com.example.visionapp.viewmodel.PedidoViewModel
 import com.example.visionapp.utils.PedidoManager
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 
 @Composable
 fun PagamentoScreen(
@@ -47,6 +51,11 @@ fun PagamentoScreen(
         Button(
             onClick = {
 
+                val dataAtual = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale.getDefault()
+                ).format(Date())
+
                 Toast.makeText(
                     context,
                     "Pagamento via PIX realizado",
@@ -57,12 +66,11 @@ fun PagamentoScreen(
                     id = pedidoViewModel.pedidos.size + 1,
                     total = carrinhoViewModel.valorTotal(),
                     quantidadeItens = carrinhoViewModel.totalItens(),
-                    status = "Pago"
+                    status = "Pago",
+                    data = dataAtual
                 )
 
-                pedidoViewModel.adicionarPedido(
-                    pedido
-                )
+                pedidoViewModel.adicionarPedido(pedido)
 
                 pedidoManager.salvarPedidos(
                     pedidoViewModel.pedidos
@@ -84,6 +92,11 @@ fun PagamentoScreen(
         Button(
             onClick = {
 
+                val dataAtual = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale.getDefault()
+                ).format(Date())
+
                 Toast.makeText(
                     context,
                     "Pagamento via Cartão realizado",
@@ -94,16 +107,16 @@ fun PagamentoScreen(
                     id = pedidoViewModel.pedidos.size + 1,
                     total = carrinhoViewModel.valorTotal(),
                     quantidadeItens = carrinhoViewModel.totalItens(),
-                    status = "Pago"
+                    status = "Pago",
+                    data = dataAtual
                 )
 
-                pedidoViewModel.adicionarPedido(
-                    pedido
-                )
+                pedidoViewModel.adicionarPedido(pedido)
 
                 pedidoManager.salvarPedidos(
                     pedidoViewModel.pedidos
                 )
+
                 carrinhoViewModel.limparCarrinho()
 
                 navController.navigate(Routes.HOME)
@@ -120,6 +133,11 @@ fun PagamentoScreen(
         Button(
             onClick = {
 
+                val dataAtual = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale.getDefault()
+                ).format(Date())
+
                 Toast.makeText(
                     context,
                     "Boleto gerado com sucesso",
@@ -130,16 +148,16 @@ fun PagamentoScreen(
                     id = pedidoViewModel.pedidos.size + 1,
                     total = carrinhoViewModel.valorTotal(),
                     quantidadeItens = carrinhoViewModel.totalItens(),
-                    status = "Pago"
+                    status = "Pago",
+                    data = dataAtual
                 )
 
-                pedidoViewModel.adicionarPedido(
-                    pedido
-                )
+                pedidoViewModel.adicionarPedido(pedido)
 
                 pedidoManager.salvarPedidos(
                     pedidoViewModel.pedidos
                 )
+
                 carrinhoViewModel.limparCarrinho()
 
                 navController.navigate(Routes.HOME)
