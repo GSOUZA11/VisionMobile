@@ -26,6 +26,11 @@ import com.example.visionapp.ui.components.HomeBottomBar
 import com.example.visionapp.ui.components.ProdutoMiniCard
 import androidx.compose.ui.platform.LocalContext
 import com.example.visionapp.utils.AddressManager
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import coil.compose.AsyncImage
+import com.example.visionapp.utils.ProfileImageManager
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,9 +40,16 @@ fun HomeScreen(
     oculosViewModel: OculosViewModel = viewModel()
 ) {
 
+
     val produtos = oculosViewModel.listaOculos.value
 
     val context = LocalContext.current
+
+    val imageManager =
+        ProfileImageManager(context)
+
+    val imageUri =
+        imageManager.obterImagem()
 
     val enderecoSalvo =
         AddressManager(context)
@@ -61,6 +73,7 @@ fun HomeScreen(
                 )
 
     }
+
 
 
     LaunchedEffect(Unit) {
@@ -88,9 +101,21 @@ fun HomeScreen(
 
             item {
 
-                Spacer(
-                    modifier = Modifier.height(8.dp)
-                )
+                if (imageUri.isNotBlank()) {
+
+                    AsyncImage(
+                        model = java.io.File(imageUri),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(70.dp)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+                }
 
                 HomeHeader(
                     nomeUsuario = "Usuario",
