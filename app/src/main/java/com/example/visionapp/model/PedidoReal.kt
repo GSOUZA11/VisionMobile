@@ -5,5 +5,6 @@ data class PedidoReal(
     val total: Double,
     val quantidadeItens: Int,
     val status: String,
-    val data: String
+    val data: String,
+    val endereco: String
 )

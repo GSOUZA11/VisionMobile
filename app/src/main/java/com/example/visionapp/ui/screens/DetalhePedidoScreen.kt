@@ -8,21 +8,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.visionapp.model.PedidoReal
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import com.example.visionapp.utils.AddressManager
+
 
 
 @Composable
 fun DetalhePedidoScreen(
-    pedido: PedidoReal
+    pedido: PedidoReal,
+    onExcluirPedido: () -> Unit
 ) {
-    val context = LocalContext.current
-
-    val addressManager =
-        AddressManager(context)
-
-    val endereco =
-        addressManager.obterEndereco()
 
     Column(
         modifier = Modifier
@@ -87,7 +80,7 @@ fun DetalhePedidoScreen(
                 )
 
                 Text(
-                    text = endereco.ifBlank {
+                    text = pedido.endereco.ifBlank {
                         "Endereço não cadastrado"
                     }
                 )
@@ -103,6 +96,18 @@ fun DetalhePedidoScreen(
                 Text(
                     text = "Valor: R$ ${pedido.total}"
                 )
+            }
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            Button(
+                onClick = {
+                    onExcluirPedido()
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Excluir Pedido")
             }
         }
     }

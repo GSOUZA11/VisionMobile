@@ -18,6 +18,7 @@ import com.example.visionapp.utils.PedidoManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.example.visionapp.utils.AddressManager
 
 
 @Composable
@@ -32,6 +33,8 @@ fun PagamentoScreen(
         PedidoViewModel.instance
     val pedidoManager =
         PedidoManager(context)
+    val addressManager =
+        AddressManager(context)
 
     Column(
         modifier = Modifier
@@ -67,7 +70,8 @@ fun PagamentoScreen(
                     total = carrinhoViewModel.valorTotal(),
                     quantidadeItens = carrinhoViewModel.totalItens(),
                     status = "Pago",
-                    data = dataAtual
+                    data = dataAtual,
+                    endereco = addressManager.obterEndereco()
                 )
 
                 pedidoViewModel.adicionarPedido(pedido)
@@ -108,7 +112,9 @@ fun PagamentoScreen(
                     total = carrinhoViewModel.valorTotal(),
                     quantidadeItens = carrinhoViewModel.totalItens(),
                     status = "Pago",
-                    data = dataAtual
+                    data = dataAtual,
+                    endereco = addressManager.obterEndereco()
+
                 )
 
                 pedidoViewModel.adicionarPedido(pedido)
@@ -149,7 +155,9 @@ fun PagamentoScreen(
                     total = carrinhoViewModel.valorTotal(),
                     quantidadeItens = carrinhoViewModel.totalItens(),
                     status = "Pago",
-                    data = dataAtual
+                    data = dataAtual,
+                    endereco = addressManager.obterEndereco()
+
                 )
 
                 pedidoViewModel.adicionarPedido(pedido)

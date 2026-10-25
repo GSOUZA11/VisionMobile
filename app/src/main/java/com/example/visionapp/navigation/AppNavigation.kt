@@ -29,6 +29,8 @@ import com.example.visionapp.ui.screens.PoliticaPrivacidadeScreen
 import com.example.visionapp.ui.screens.TermosUsoScreen
 import com.example.visionapp.ui.screens.DetalhePedidoScreen
 import com.example.visionapp.viewmodel.PedidoViewModel
+import com.example.visionapp.utils.PedidoManager
+import com.example.visionapp.utils.AppContext
 
 @Composable
 fun AppNavigation(
@@ -159,7 +161,20 @@ fun AppNavigation(
             pedido?.let {
 
                 DetalhePedidoScreen(
-                    pedido = it
+                    pedido = it,
+                    onExcluirPedido = {
+
+                        val pedidoManager =
+                            PedidoManager(AppContext.context)
+
+                        PedidoViewModel.instance.removerPedido(it)
+
+                        pedidoManager.salvarPedidos(
+                            PedidoViewModel.instance.pedidos.toList()
+                        )
+
+                        navController.popBackStack()
+                    }
                 )
             }
         }

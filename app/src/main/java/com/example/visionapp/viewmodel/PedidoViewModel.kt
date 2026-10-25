@@ -23,6 +23,11 @@ class PedidoViewModel : ViewModel() {
         pedidos.addAll(lista)
     }
 
+    fun removerPedido(
+        pedido: PedidoReal
+    ) {
+        pedidos.remove(pedido)
+    }
     companion object {
 
         val instance =
