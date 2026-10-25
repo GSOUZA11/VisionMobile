@@ -27,6 +27,7 @@ fun MinhasComprasScreen(
 
     val pedidos =
         pedidoViewModel.pedidos
+            .reversed()
 
     if (pedidos.isEmpty()) {
 
@@ -101,6 +102,9 @@ fun MinhasComprasScreen(
                     Text(
                         text = "Pedido #${pedido.id}",
                         fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = pedido.data
                     )
 
                     Text(
