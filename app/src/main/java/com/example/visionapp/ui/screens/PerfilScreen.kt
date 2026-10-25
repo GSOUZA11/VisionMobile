@@ -17,6 +17,7 @@ import com.example.visionapp.viewmodel.PerfilViewModel
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,9 +25,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import com.example.visionapp.utils.ProfileImageManager
+import androidx.compose.material3.AlertDialog
+import com.example.visionapp.R
 
 @Composable
 fun PerfilScreen(
@@ -51,6 +54,9 @@ fun PerfilScreen(
         mutableStateOf(
             imageManager.obterImagem()
         )
+    }
+    var mostrarLogout by remember {
+        mutableStateOf(false)
     }
     val launcher =
         rememberLauncherForActivityResult(
@@ -184,11 +190,48 @@ fun PerfilScreen(
 
         Button(
             onClick = {
-                // Logout futuramente
+                mostrarLogout = true
             },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Sair da Conta")
+        }
+        if (mostrarLogout) {
+
+            AlertDialog(
+                onDismissRequest = {
+                    mostrarLogout = false
+                },
+
+                title = {
+                    Text("Sair da Conta")
+                },
+
+                text = {
+                    Text("Deseja realmente sair da conta?")
+                },
+
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            mostrarLogout = false
+                            navController.navigate(Routes.LOGIN)
+                        }
+                    ) {
+                        Text("Sair")
+                    }
+                },
+
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            mostrarLogout = false
+                        }
+                    ) {
+                        Text("Cancelar")
+                    }
+                }
+            )
         }
     }
 }

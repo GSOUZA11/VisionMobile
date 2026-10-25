@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VisionApp</string>
+
+    <string name="logout">Sair da Conta</string>
+    <string name="edit_profile">Editar Perfil</string>
+
 </resources>
