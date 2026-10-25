@@ -14,6 +14,9 @@ import com.example.visionapp.viewmodel.PedidoViewModel
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
 import androidx.compose.material3.Button
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.*
 
 
 @Composable
@@ -28,6 +31,10 @@ fun MinhasComprasScreen(
     val pedidos =
         pedidoViewModel.pedidos
             .reversed()
+
+    var mostrarDialogo by remember {
+        mutableStateOf(false)
+    }
 
     if (pedidos.isEmpty()) {
 
@@ -63,8 +70,7 @@ fun MinhasComprasScreen(
 
             Button(
                 onClick = {
-                    onLimparHistorico()
-
+                    mostrarDialogo = true
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -120,5 +126,48 @@ fun MinhasComprasScreen(
                 }
             }
         }
+    }
+    if (mostrarDialogo) {
+
+        AlertDialog(
+            onDismissRequest = {
+                mostrarDialogo = false
+            },
+
+            title = {
+                Text("Excluir Histórico")
+            },
+
+            text = {
+                Text(
+                    "Deseja realmente excluir todo o histórico de compras?"
+                )
+            },
+
+            confirmButton = {
+
+                TextButton(
+                    onClick = {
+
+                        onLimparHistorico()
+
+                        mostrarDialogo = false
+                    }
+                ) {
+                    Text("Excluir")
+                }
+            },
+
+            dismissButton = {
+
+                TextButton(
+                    onClick = {
+                        mostrarDialogo = false
+                    }
+                ) {
+                    Text("Cancelar")
+                }
+            }
+        )
     }
 }
