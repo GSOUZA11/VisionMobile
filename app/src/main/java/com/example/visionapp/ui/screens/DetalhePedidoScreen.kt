@@ -14,7 +14,8 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun DetalhePedidoScreen(
     pedido: PedidoReal,
-    onExcluirPedido: () -> Unit
+    onExcluirPedido: () -> Unit,
+    onComprarNovamente: () -> Unit
 ) {
 
     Column(
@@ -108,6 +109,18 @@ fun DetalhePedidoScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Excluir Pedido")
+            }
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
+            Button(
+                onClick = {
+                    onComprarNovamente()
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Comprar Novamente")
             }
         }
     }

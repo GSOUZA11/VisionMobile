@@ -162,18 +162,27 @@ fun AppNavigation(
 
                 DetalhePedidoScreen(
                     pedido = it,
+
                     onExcluirPedido = {
 
                         val pedidoManager =
                             PedidoManager(AppContext.context)
 
-                        PedidoViewModel.instance.removerPedido(it)
+                        PedidoViewModel.instance
+                            .removerPedido(it)
 
                         pedidoManager.salvarPedidos(
                             PedidoViewModel.instance.pedidos.toList()
                         )
 
                         navController.popBackStack()
+                    },
+
+                    onComprarNovamente = {
+
+                        navController.navigate(
+                            Routes.HOME
+                        )
                     }
                 )
             }
