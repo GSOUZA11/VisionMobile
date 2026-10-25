@@ -8,6 +8,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.visionapp.model.PedidoReal
 import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.*
+
 
 
 
@@ -17,6 +19,10 @@ fun DetalhePedidoScreen(
     onExcluirPedido: () -> Unit,
     onComprarNovamente: () -> Unit
 ) {
+
+    var mostrarDialogoExclusao by remember {
+        mutableStateOf(false)
+    }
 
     Column(
         modifier = Modifier
@@ -104,12 +110,13 @@ fun DetalhePedidoScreen(
 
             Button(
                 onClick = {
-                    onExcluirPedido()
+                    mostrarDialogoExclusao = true
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Excluir Pedido")
             }
+
             Spacer(
                 modifier = Modifier.height(8.dp)
             )
@@ -123,5 +130,48 @@ fun DetalhePedidoScreen(
                 Text("Comprar Novamente")
             }
         }
+    }
+    if (mostrarDialogoExclusao) {
+
+        AlertDialog(
+            onDismissRequest = {
+                mostrarDialogoExclusao = false
+            },
+
+            title = {
+                Text("Excluir Pedido")
+            },
+
+            text = {
+                Text(
+                    "Deseja realmente excluir este pedido?"
+                )
+            },
+
+            confirmButton = {
+
+                TextButton(
+                    onClick = {
+
+                        onExcluirPedido()
+
+                        mostrarDialogoExclusao = false
+                    }
+                ) {
+                    Text("Excluir")
+                }
+            },
+
+            dismissButton = {
+
+                TextButton(
+                    onClick = {
+                        mostrarDialogoExclusao = false
+                    }
+                ) {
+                    Text("Cancelar")
+                }
+            }
+        )
     }
 }
