@@ -14,6 +14,7 @@ import com.example.visionapp.navigation.Routes
 import com.example.visionapp.viewmodel.CarrinhoViewModel
 import com.example.visionapp.model.PedidoReal
 import com.example.visionapp.viewmodel.PedidoViewModel
+import com.example.visionapp.utils.PedidoManager
 
 @Composable
 fun PagamentoScreen(
@@ -25,6 +26,8 @@ fun PagamentoScreen(
         CarrinhoViewModel.getInstance()
     val pedidoViewModel =
         PedidoViewModel.instance
+    val pedidoManager =
+        PedidoManager(context)
 
     Column(
         modifier = Modifier
@@ -50,13 +53,19 @@ fun PagamentoScreen(
                     Toast.LENGTH_SHORT
                 ).show()
 
+                val pedido = PedidoReal(
+                    id = pedidoViewModel.pedidos.size + 1,
+                    total = carrinhoViewModel.valorTotal(),
+                    quantidadeItens = carrinhoViewModel.totalItens(),
+                    status = "Pago"
+                )
+
                 pedidoViewModel.adicionarPedido(
-                    PedidoReal(
-                        id = pedidoViewModel.pedidos.size + 1,
-                        total = carrinhoViewModel.valorTotal(),
-                        quantidadeItens = carrinhoViewModel.totalItens(),
-                        status = "Pago"
-                    )
+                    pedido
+                )
+
+                pedidoManager.salvarPedidos(
+                    pedidoViewModel.pedidos
                 )
 
                 carrinhoViewModel.limparCarrinho()
@@ -81,13 +90,19 @@ fun PagamentoScreen(
                     Toast.LENGTH_SHORT
                 ).show()
 
+                val pedido = PedidoReal(
+                    id = pedidoViewModel.pedidos.size + 1,
+                    total = carrinhoViewModel.valorTotal(),
+                    quantidadeItens = carrinhoViewModel.totalItens(),
+                    status = "Pago"
+                )
+
                 pedidoViewModel.adicionarPedido(
-                    PedidoReal(
-                        id = pedidoViewModel.pedidos.size + 1,
-                        total = carrinhoViewModel.valorTotal(),
-                        quantidadeItens = carrinhoViewModel.totalItens(),
-                        status = "Pago"
-                    )
+                    pedido
+                )
+
+                pedidoManager.salvarPedidos(
+                    pedidoViewModel.pedidos
                 )
                 carrinhoViewModel.limparCarrinho()
 
@@ -111,13 +126,19 @@ fun PagamentoScreen(
                     Toast.LENGTH_SHORT
                 ).show()
 
+                val pedido = PedidoReal(
+                    id = pedidoViewModel.pedidos.size + 1,
+                    total = carrinhoViewModel.valorTotal(),
+                    quantidadeItens = carrinhoViewModel.totalItens(),
+                    status = "Pago"
+                )
+
                 pedidoViewModel.adicionarPedido(
-                    PedidoReal(
-                        id = pedidoViewModel.pedidos.size + 1,
-                        total = carrinhoViewModel.valorTotal(),
-                        quantidadeItens = carrinhoViewModel.totalItens(),
-                        status = "Pago"
-                    )
+                    pedido
+                )
+
+                pedidoManager.salvarPedidos(
+                    pedidoViewModel.pedidos
                 )
                 carrinhoViewModel.limparCarrinho()
 

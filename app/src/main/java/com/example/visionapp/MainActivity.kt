@@ -12,6 +12,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.visionapp.utils.ThemeManager
+import com.example.visionapp.utils.PedidoManager
+import com.example.visionapp.viewmodel.PedidoViewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -24,6 +26,17 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val themeManager = ThemeManager(this)
+
+            val pedidoManager = PedidoManager(this)
+
+            remember {
+
+                PedidoViewModel.instance.carregarPedidos(
+                    pedidoManager.obterPedidos()
+                )
+
+                true
+            }
 
             var temaEscuro by remember {
                 mutableStateOf(

@@ -14,9 +14,18 @@ class PedidoViewModel : ViewModel() {
         pedidos.add(pedido)
     }
 
+    fun carregarPedidos(
+        lista: List<PedidoReal>
+    ) {
+
+        pedidos.clear()
+
+        pedidos.addAll(lista)
+    }
+
     companion object {
 
-        val instance = PedidoViewModel()
-
+        val instance =
+            PedidoViewModel()
     }
 }
