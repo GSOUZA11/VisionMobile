@@ -14,6 +14,19 @@ import com.example.visionapp.navigation.Routes
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.LaunchedEffect
 import com.example.visionapp.viewmodel.PerfilViewModel
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.example.visionapp.utils.ProfileImageManager
 
 @Composable
 fun PerfilScreen(
@@ -28,6 +41,50 @@ fun PerfilScreen(
 
     val usuario = perfilViewModel.usuario.value
 
+    val context = LocalContext.current
+
+    val imageManager =
+        ProfileImageManager(context)
+
+    var imageUri by remember {
+
+        mutableStateOf(
+            imageManager.obterImagem()
+        )
+    }
+    val launcher =
+        rememberLauncherForActivityResult(
+            contract =
+                ActivityResultContracts.GetContent()
+        ) { uri ->
+
+            uri?.let {
+
+                val inputStream =
+                    context.contentResolver
+                        .openInputStream(it)
+
+                val file = java.io.File(
+                    context.filesDir,
+                    "profile.jpg"
+                )
+
+                inputStream?.use { input ->
+
+                    file.outputStream().use { output ->
+
+                        input.copyTo(output)
+                    }
+                }
+
+                imageUri = file.absolutePath
+
+                imageManager.salvarImagem(
+                    file.absolutePath
+                )
+            }
+        }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,6 +94,43 @@ fun PerfilScreen(
         Text(
             text = "Meu Perfil",
             style = MaterialTheme.typography.headlineMedium
+        )
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
+
+        if (imageUri.isNotBlank()) {
+
+            AsyncImage(
+                model = java.io.File(imageUri),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+
+        } else {
+
+            Text(
+                text = "📷 Adicione uma foto"
+            )
+        }
+
+        Spacer(
+            modifier = Modifier.height(12.dp)
+        )
+
+        Button(
+            onClick = {
+                launcher.launch("image/*")
+            }
+        ) {
+            Text("Escolher Foto")
+        }
+
+        Spacer(
+            modifier = Modifier.height(24.dp)
         )
 
         Spacer(
