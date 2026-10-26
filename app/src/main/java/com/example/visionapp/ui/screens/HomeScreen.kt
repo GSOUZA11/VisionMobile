@@ -218,7 +218,9 @@ fun HomeScreen(
                     item {
                         AssistChip(
                             onClick = {
-                                navController.navigate(Routes.CATEGORIA)
+                                navController.navigate(
+                                    Routes.produtosCategoria("Sol")
+                                )
                             },
                             label = {
                                 Text("Sol")
@@ -229,7 +231,9 @@ fun HomeScreen(
                     item {
                         AssistChip(
                             onClick = {
-                                navController.navigate(Routes.CATEGORIA)
+                                navController.navigate(
+                                    Routes.produtosCategoria("Grau")
+                                )
                             },
                             label = {
                                 Text("Grau")
@@ -240,7 +244,9 @@ fun HomeScreen(
                     item {
                         AssistChip(
                             onClick = {
-                                navController.navigate(Routes.CATEGORIA)
+                                navController.navigate(
+                                    Routes.produtosCategoria("Clássico")
+                                )
                             },
                             label = {
                                 Text("Clássico")
@@ -251,18 +257,23 @@ fun HomeScreen(
                     item {
                         AssistChip(
                             onClick = {
-                                navController.navigate(Routes.CATEGORIA)
+                                navController.navigate(
+                                    Routes.produtosCategoria("Vintage")
+                                )
                             },
                             label = {
                                 Text("Vintage")
                             }
                         )
+
                     }
 
                     item {
                         AssistChip(
                             onClick = {
-                                navController.navigate(Routes.CATEGORIA)
+                                navController.navigate(
+                                    Routes.produtosCategoria("Esportivo")
+                                )
                             },
                             label = {
                                 Text("Esportivo")
