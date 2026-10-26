@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
-import com.example.visionapp.ui.components.HomeBanner
 import com.example.visionapp.ui.components.HomeHeader
 import com.example.visionapp.ui.components.HomeBottomBar
 import com.example.visionapp.ui.components.ProdutoMiniCard
@@ -30,6 +29,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
+import com.example.visionapp.ui.components.HomeBanner
 import com.example.visionapp.utils.ProfileImageManager
 
 
