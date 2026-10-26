@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.visionapp.ui.screens.AjudaScreen
 import com.example.visionapp.ui.screens.CadastroScreen
 import com.example.visionapp.ui.screens.CarrinhoScreen
 import com.example.visionapp.ui.screens.CategoriaScreen
@@ -161,6 +162,10 @@ fun AppNavigation(
             composable(Routes.POLITICA_PRIVACIDADE) {
                 PoliticaPrivacidadeScreen(navController)
             }
+
+           composable(Routes.AJUDA) {
+            AjudaScreen(navController)
+        }
 
             composable(Routes.TERMOS_USO) {
                 TermosUsoScreen(navController)

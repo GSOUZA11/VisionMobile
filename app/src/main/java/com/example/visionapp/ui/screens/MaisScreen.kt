@@ -119,7 +119,12 @@ fun MaisScreen(
                 )
                 MenuItem(
                     titulo = "Ajuda",
-                    icon = Icons.Default.Info
+                    icon = Icons.Default.Info,
+                    onClick = {
+                        navController.navigate(
+                            Routes.AJUDA
+                        )
+                    }
                 )
 
                 Spacer(
