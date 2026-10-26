@@ -12,14 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.visionapp.model.Oculos
 
 @Composable
 fun CategoriaSection(
     categoria: String,
     produtos: List<Oculos>,
-    onVerMais: () -> Unit = {},
-    onProdutoClick: (Oculos) -> Unit = {}
+    navController: NavController,
+    onVerMais: () -> Unit = {}
 ) {
 
     Column {
@@ -69,13 +70,13 @@ fun CategoriaSection(
             produtos.take(5).forEach { produto ->
 
                 ProdutoMiniCard(
+                    id = produto.id,
                     nome = produto.nome,
                     preco = produto.preco,
                     imagem = produto.imagem,
-                    onSaibaMais = {
-                        onProdutoClick(produto)
-                    }
+                    navController = navController
                 )
+
 
                 Spacer(
                     modifier = Modifier.width(8.dp)

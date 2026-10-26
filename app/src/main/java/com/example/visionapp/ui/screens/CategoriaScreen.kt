@@ -167,6 +167,7 @@ fun CategoriaScreen(navController: NavController) {
                     CategoriaSection(
                         categoria = categoria,
                         produtos = produtos,
+                        navController = navController,
                         onVerMais = {
 
                             navController.navigate(

@@ -15,14 +15,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import androidx.compose.ui.layout.ContentScale
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
 import com.example.visionapp.utils.Constants
 
 @Composable
 fun ProdutoMiniCard(
+    id: Int,
     nome: String,
     preco: Double,
     imagem: String,
-    onSaibaMais: () -> Unit = {}
+    navController: NavController
 ){
 
     Card(
@@ -76,13 +79,14 @@ fun ProdutoMiniCard(
             )
 
             Button(
-                onClick = onSaibaMais,
+                onClick = {
+                    navController.navigate("detalhes_produto/$id")
+                },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFE67600)
                 )
             ) {
-
                 Text("Saiba Mais")
             }
         }

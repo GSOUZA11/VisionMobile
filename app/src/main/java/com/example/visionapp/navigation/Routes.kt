@@ -42,7 +42,11 @@ object Routes {
 
     const val TERMOS_USO = "termos_uso"
 
+    const val TERMOS = "termos"
+
     const val DETALHE_PEDIDO = "detalhe_pedido/{id}"
+
+    const val PRODUTO_DETALHADO = "produto_detalhado"
 
     fun produtosCategoria(
         categoria: String

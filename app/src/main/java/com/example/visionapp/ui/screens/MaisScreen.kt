@@ -191,7 +191,12 @@ fun MaisScreen(
                 )
                 MenuItem(
                     titulo = "Termos e Condições",
-                    icon = Icons.Default.Description
+                    icon = Icons.Default.Description,
+                    onClick = {
+                        navController.navigate(
+                            Routes.TERMOS
+                        )
+                    }
                 )
                 MenuItem(
                     titulo = "Sobre Nós",

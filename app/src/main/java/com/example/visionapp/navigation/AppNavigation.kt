@@ -28,6 +28,7 @@ import com.example.visionapp.ui.screens.EnderecoScreen
 import com.example.visionapp.ui.screens.PoliticaPrivacidadeScreen
 import com.example.visionapp.ui.screens.TermosUsoScreen
 import com.example.visionapp.ui.screens.DetalhePedidoScreen
+import com.example.visionapp.ui.screens.TermosScreen
 import com.example.visionapp.viewmodel.PedidoViewModel
 import com.example.visionapp.utils.PedidoManager
 import com.example.visionapp.utils.AppContext
@@ -145,6 +146,12 @@ fun AppNavigation(
 
             composable(Routes.SOBRE_NOS) {
                 SobreNosScreen()
+            }
+
+            composable(Routes.TERMOS) {
+                TermosScreen(
+                    navController = navController
+                )
             }
 
             composable(Routes.ENDERECO) {

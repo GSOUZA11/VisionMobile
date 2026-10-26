@@ -244,9 +244,11 @@ fun ProdutosCategoriaScreen(
                 items(produtos) { produto ->
 
                     ProdutoMiniCard(
+                        id = produto.id,
                         nome = produto.nome,
                         preco = produto.preco,
-                        imagem = produto.imagem
+                        imagem = produto.imagem,
+                        navController = navController
                     )
                 }
             }

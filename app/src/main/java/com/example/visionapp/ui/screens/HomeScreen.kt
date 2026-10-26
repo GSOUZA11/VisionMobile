@@ -302,9 +302,11 @@ fun HomeScreen(
                     items(produtosFiltrados.take(10)) { produto ->
 
                         ProdutoMiniCard(
+                            id = produto.id,
                             nome = produto.nome,
                             preco = produto.preco,
-                            imagem = produto.imagem
+                            imagem = produto.imagem,
+                            navController = navController
                         )
                     }
                 }
