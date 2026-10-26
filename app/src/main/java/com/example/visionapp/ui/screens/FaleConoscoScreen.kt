@@ -8,109 +8,125 @@ import androidx.compose.ui.unit.dp
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
+import com.example.visionapp.ui.components.HomeBottomBar
 
 @Composable
-fun FaleConoscoScreen() {
+fun FaleConoscoScreen(
+    navController: NavController
+) {
 
     val context = LocalContext.current
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-
-        Text(
-            text = "Fale Conosco",
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
-
-                val intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(
-                        "https://wa.me/5511999999999"
-                    )
-                )
-
-                context.startActivity(intent)
-            }
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
-            ) {
-
-                Text("📞 WhatsApp")
-
-                Text("(11) 99999-9999")
-            }
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
+            )
         }
+    ) { padding ->
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
 
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
+            Text(
+                text = "Fale Conosco",
+                style = MaterialTheme.typography.headlineMedium
+            )
 
-                val intent = Intent(
-                    Intent.ACTION_SENDTO
-                ).apply {
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
 
-                    data = Uri.parse(
-                        "mailto:suporte@vision.com"
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(
+                            "https://wa.me/5511999999999"
+                        )
                     )
+
+                    context.startActivity(intent)
                 }
-
-                context.startActivity(intent)
-            }
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
             ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
 
-                Text("✉️ E-mail")
+                    Text("📞 WhatsApp")
 
-                Text("suporte@vision.com")
+                    Text("(11) 99999-9999")
+                }
             }
-        }
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+
+                    val intent = Intent(
+                        Intent.ACTION_SENDTO
+                    ).apply {
+
+                        data = Uri.parse(
+                            "mailto:suporte@vision.com"
+                        )
+                    }
+
+                    context.startActivity(intent)
+                }
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
+                    Text("✉️ E-mail")
+
+                    Text("suporte@vision.com")
+                }
+            }
 
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
 
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
 
-                val intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(
-                        "https://www.instagram.com/accounts/login/"
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(
+                            "https://www.instagram.com/accounts/login/"
+                        )
                     )
-                )
 
-                context.startActivity(intent)
-            }
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
+                    context.startActivity(intent)
+                }
             ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
 
-                Text("📸 Instagram")
+                    Text("📸 Instagram")
 
-                Text("Entrar no Instagram")
+                    Text("Entrar no Instagram")
+                }
             }
-        }
 
+        }
     }
 }

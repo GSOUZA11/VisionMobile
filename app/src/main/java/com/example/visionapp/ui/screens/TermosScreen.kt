@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
+import com.example.visionapp.ui.components.HomeBottomBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,13 +44,22 @@ Estes termos podem ser atualizados sem aviso prévio.
     """.trimIndent()
 
     Scaffold(
+
         topBar = {
             TopAppBar(
                 title = {
                     Text("Termos e Condições")
                 }
             )
+        },
+
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
+            )
         }
+
     ) { padding ->
 
         Column(

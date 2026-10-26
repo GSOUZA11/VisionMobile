@@ -118,7 +118,7 @@ fun AppNavigation(
         }
 
         composable(Routes.FAVORITOS) {
-            FavoritosScreen()
+            FavoritosScreen(navController)
         }
 
         composable(Routes.CHECKOUT) {
@@ -130,7 +130,7 @@ fun AppNavigation(
         }
 
             composable(Routes.NOTIFICACOES) {
-                NotificacoesScreen()
+                NotificacoesScreen(navController)
             }
 
             composable(Routes.CONFIGURACOES) {
@@ -141,11 +141,11 @@ fun AppNavigation(
             }
 
             composable(Routes.FALE_CONOSCO) {
-                FaleConoscoScreen()
+                FaleConoscoScreen(navController)
             }
 
             composable(Routes.SOBRE_NOS) {
-                SobreNosScreen()
+                SobreNosScreen(navController)
             }
 
             composable(Routes.TERMOS) {
@@ -155,15 +155,15 @@ fun AppNavigation(
             }
 
             composable(Routes.ENDERECO) {
-                EnderecoScreen()
+                EnderecoScreen(navController)
             }
 
             composable(Routes.POLITICA_PRIVACIDADE) {
-                PoliticaPrivacidadeScreen()
+                PoliticaPrivacidadeScreen(navController)
             }
 
             composable(Routes.TERMOS_USO) {
-                TermosUsoScreen()
+                TermosUsoScreen(navController)
             }
 
             composable(

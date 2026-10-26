@@ -15,6 +15,8 @@ import com.example.visionapp.navigation.Routes
 import com.example.visionapp.utils.ThemeManager
 import com.example.visionapp.utils.LanguageManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.Scaffold
+import com.example.visionapp.ui.components.HomeBottomBar
 
 
 @Composable
@@ -50,234 +52,245 @@ fun ConfiguracoesScreen(
         )
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-
-        Text(
-            text = "Configurações",
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
-
-        // Notificações
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-
-                Text("🔔 Receber notificações")
-
-                Switch(
-                    checked = notificacoes,
-                    onCheckedChange = {
-                        notificacoes = it
-                    }
-                )
-            }
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
+            )
         }
+    ) { padding ->
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
-
-        // Tema Escuro
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-
-                Text("🌙 Tema Escuro")
-
-                Switch(
-                    checked = temaEscuro,
-                    onCheckedChange = {
-
-                        temaEscuro = it
-
-                        themeManager.salvarTemaEscuro(it)
-
-                        onThemeChanged(it)
-                    }
-                )
-            }
-        }
-
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
-
-        // Idioma
-        Card(
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
         ) {
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+            Text(
+                text = "Configurações",
+                style = MaterialTheme.typography.headlineMedium
+            )
+
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
+
+            // Notificações
+            Card(
+                modifier = Modifier.fillMaxWidth()
             ) {
-
-                Text(
-                    text = "🌎 Idioma",
-                    style = MaterialTheme.typography.titleMedium
-                )
-
-                Spacer(
-                    modifier = Modifier.height(8.dp)
-                )
-
-                TextButton(
-                    onClick = {
-                        expandirIdiomas = true
-                    }
-                ) {
-                    Text(idioma)
-                }
-
-                DropdownMenu(
-                    expanded = expandirIdiomas,
-                    onDismissRequest = {
-                        expandirIdiomas = false
-                    }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
-                    DropdownMenuItem(
-                        text = {
-                            Text("Português")
-                        },
-                        onClick = {
+                    Text("🔔 Receber notificações")
 
-                            idioma = "Português"
-
-                            languageManager.salvarIdioma(
-                                idioma
-                            )
-
-                            expandirIdiomas = false
-                        }
-                    )
-
-                    DropdownMenuItem(
-                        text = {
-                            Text("English")
-                        },
-                        onClick = {
-
-                            idioma = "English"
-
-                            languageManager.salvarIdioma(
-                                idioma
-                            )
-
-                            expandirIdiomas = false
+                    Switch(
+                        checked = notificacoes,
+                        onCheckedChange = {
+                            notificacoes = it
                         }
                     )
                 }
             }
-        }
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
 
-        // Versão
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
+            // Tema Escuro
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Text("🌙 Tema Escuro")
+
+                    Switch(
+                        checked = temaEscuro,
+                        onCheckedChange = {
+
+                            temaEscuro = it
+
+                            themeManager.salvarTemaEscuro(it)
+
+                            onThemeChanged(it)
+                        }
+                    )
+                }
+            }
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            // Idioma
+            Card(
+                modifier = Modifier.fillMaxWidth()
             ) {
 
-                Text(
-                    text = "📱 Versão do Aplicativo",
-                    style = MaterialTheme.typography.titleMedium
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
 
-                Spacer(
-                    modifier = Modifier.height(4.dp)
-                )
+                    Text(
+                        text = "🌎 Idioma",
+                        style = MaterialTheme.typography.titleMedium
+                    )
 
-                Text("Vision Mobile 1.0")
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+
+                    TextButton(
+                        onClick = {
+                            expandirIdiomas = true
+                        }
+                    ) {
+                        Text(idioma)
+                    }
+
+                    DropdownMenu(
+                        expanded = expandirIdiomas,
+                        onDismissRequest = {
+                            expandirIdiomas = false
+                        }
+                    ) {
+
+                        DropdownMenuItem(
+                            text = {
+                                Text("Português")
+                            },
+                            onClick = {
+
+                                idioma = "Português"
+
+                                languageManager.salvarIdioma(
+                                    idioma
+                                )
+
+                                expandirIdiomas = false
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = {
+                                Text("English")
+                            },
+                            onClick = {
+
+                                idioma = "English"
+
+                                languageManager.salvarIdioma(
+                                    idioma
+                                )
+
+                                expandirIdiomas = false
+                            }
+                        )
+                    }
+                }
             }
-        }
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
 
-        // Política de Privacidade
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
-                navController.navigate(
-                    Routes.POLITICA_PRIVACIDADE
-                )
-            }
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
+            // Versão
+            Card(
+                modifier = Modifier.fillMaxWidth()
             ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
 
-                Text(
-                    text = "🔒 Política de Privacidade",
-                    style = MaterialTheme.typography.titleMedium
-                )
+                    Text(
+                        text = "📱 Versão do Aplicativo",
+                        style = MaterialTheme.typography.titleMedium
+                    )
 
-                Spacer(
-                    modifier = Modifier.height(4.dp)
-                )
+                    Spacer(
+                        modifier = Modifier.height(4.dp)
+                    )
 
-                Text(
-                    text = "Saiba como seus dados são utilizados."
-                )
+                    Text("Vision Mobile 1.0")
+                }
             }
-        }
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
 
-        // Termos de Uso
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
-                navController.navigate(
-                    Routes.TERMOS_USO
-                )
-            }
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
+            // Política de Privacidade
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    navController.navigate(
+                        Routes.POLITICA_PRIVACIDADE
+                    )
+                }
             ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
 
-                Text(
-                    text = "📄 Termos de Uso",
-                    style = MaterialTheme.typography.titleMedium
-                )
+                    Text(
+                        text = "🔒 Política de Privacidade",
+                        style = MaterialTheme.typography.titleMedium
+                    )
 
-                Spacer(
-                    modifier = Modifier.height(4.dp)
-                )
+                    Spacer(
+                        modifier = Modifier.height(4.dp)
+                    )
 
-                Text(
-                    text = "Consulte os termos de utilização do aplicativo."
-                )
+                    Text(
+                        text = "Saiba como seus dados são utilizados."
+                    )
+                }
+            }
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            // Termos de Uso
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    navController.navigate(
+                        Routes.TERMOS_USO
+                    )
+                }
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
+                    Text(
+                        text = "📄 Termos de Uso",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(4.dp)
+                    )
+
+                    Text(
+                        text = "Consulte os termos de utilização do aplicativo."
+                    )
+                }
             }
         }
     }

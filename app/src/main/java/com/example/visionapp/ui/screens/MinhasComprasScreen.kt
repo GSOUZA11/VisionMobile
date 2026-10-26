@@ -15,15 +15,17 @@ import androidx.navigation.NavController
 import com.example.visionapp.navigation.Routes
 import androidx.compose.material3.Button
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
+import com.example.visionapp.ui.components.HomeBottomBar
 
 
 @Composable
 fun MinhasComprasScreen(
     navController: NavController,
     onLimparHistorico: () -> Unit
-){
+) {
 
     val pedidoViewModel =
         PedidoViewModel.instance
@@ -51,123 +53,135 @@ fun MinhasComprasScreen(
 
         return
     }
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
 
-        item {
-
-            Text(
-                text = "Minhas Compras",
-                style = MaterialTheme.typography.headlineMedium
-            )
-
-            Spacer(
-                modifier = Modifier.height(16.dp)
-            )
-
-            Button(
-                onClick = {
-                    mostrarDialogo = true
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Excluir Todo Histórico")
-            }
-
-            Spacer(
-                modifier = Modifier.height(16.dp)
-            )
-
-            Spacer(
-                modifier = Modifier.height(16.dp)
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
             )
         }
+    ) { padding ->
 
-        items(pedidos) { pedido ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
 
-            Card(
-                onClick = {
-                    navController.navigate(
-                        Routes.detalhePedido(
-                            pedido.id
-                        )
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp)
-            ) {
+            item {
 
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-
-                    Text(
-                        text = "Pedido #${pedido.id}",
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = pedido.data
-                    )
-
-                    Text(
-                        text = "Itens: ${pedido.quantidadeItens}"
-                    )
-                    Text(
-                        text = "Status: ${pedido.status}"
-                    )
-
-                    Text(
-                        text = "Valor: R$ ${pedido.total}"
-                    )
-                }
-            }
-        }
-    }
-    if (mostrarDialogo) {
-
-        AlertDialog(
-            onDismissRequest = {
-                mostrarDialogo = false
-            },
-
-            title = {
-                Text("Excluir Histórico")
-            },
-
-            text = {
                 Text(
-                    "Deseja realmente excluir todo o histórico de compras?"
+                    text = "Minhas Compras",
+                    style = MaterialTheme.typography.headlineMedium
                 )
-            },
 
-            confirmButton = {
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
 
-                TextButton(
+                Button(
                     onClick = {
-
-                        onLimparHistorico()
-
-                        mostrarDialogo = false
-                    }
+                        mostrarDialogo = true
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Excluir")
+                    Text("Excluir Todo Histórico")
                 }
-            },
 
-            dismissButton = {
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
 
-                TextButton(
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+            }
+
+            items(pedidos) { pedido ->
+
+                Card(
                     onClick = {
-                        mostrarDialogo = false
-                    }
+                        navController.navigate(
+                            Routes.detalhePedido(
+                                pedido.id
+                            )
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
                 ) {
-                    Text("Cancelar")
+
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+
+                        Text(
+                            text = "Pedido #${pedido.id}",
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = pedido.data
+                        )
+
+                        Text(
+                            text = "Itens: ${pedido.quantidadeItens}"
+                        )
+                        Text(
+                            text = "Status: ${pedido.status}"
+                        )
+
+                        Text(
+                            text = "Valor: R$ ${pedido.total}"
+                        )
+                    }
                 }
             }
-        )
+        }
+        if (mostrarDialogo) {
+
+            AlertDialog(
+                onDismissRequest = {
+                    mostrarDialogo = false
+                },
+
+                title = {
+                    Text("Excluir Histórico")
+                },
+
+                text = {
+                    Text(
+                        "Deseja realmente excluir todo o histórico de compras?"
+                    )
+                },
+
+                confirmButton = {
+
+                    TextButton(
+                        onClick = {
+
+                            onLimparHistorico()
+
+                            mostrarDialogo = false
+                        }
+                    ) {
+                        Text("Excluir")
+                    }
+                },
+
+                dismissButton = {
+
+                    TextButton(
+                        onClick = {
+                            mostrarDialogo = false
+                        }
+                    ) {
+                        Text("Cancelar")
+                    }
+                }
+            )
+        }
     }
 }

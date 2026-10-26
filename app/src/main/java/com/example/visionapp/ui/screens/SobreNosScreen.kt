@@ -5,73 +5,90 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Scaffold
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
+import com.example.visionapp.ui.components.HomeBottomBar
 
 @Composable
-fun SobreNosScreen() {
+fun SobreNosScreen(
+    navController: NavController
+) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
+            )
+        }
+    ) { padding ->
 
-        Text(
-            text = "Sobre Nós",
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
-
-        Card(
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
         ) {
 
-            Column(
-                modifier = Modifier.padding(16.dp)
+            Text(
+                text = "Sobre Nós",
+                style = MaterialTheme.typography.headlineMedium
+            )
+
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
+
+            Card(
+                modifier = Modifier.fillMaxWidth()
             ) {
 
-                Text(
-                    text = "Vision Mobile"
-                )
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
 
-                Spacer(
-                    modifier = Modifier.height(8.dp)
-                )
+                    Text(
+                        text = "Vision Mobile"
+                    )
 
-                Text(
-                    text = "Aplicativo desenvolvido para facilitar a compra de óculos de forma prática, segura e moderna."
-                )
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+
+                    Text(
+                        text = "Aplicativo desenvolvido para facilitar a compra de óculos de forma prática, segura e moderna."
+                    )
+
+                }
 
             }
 
-        }
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
-
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-
-            Column(
-                modifier = Modifier.padding(16.dp)
+            Card(
+                modifier = Modifier.fillMaxWidth()
             ) {
 
-                Text("Versão")
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
 
-                Spacer(
-                    modifier = Modifier.height(4.dp)
-                )
+                    Text("Versão")
 
-                Text("1.0")
+                    Spacer(
+                        modifier = Modifier.height(4.dp)
+                    )
+
+                    Text("1.0")
+
+                }
 
             }
 
         }
 
     }
-
 }
