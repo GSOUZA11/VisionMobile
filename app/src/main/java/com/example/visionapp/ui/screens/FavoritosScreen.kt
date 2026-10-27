@@ -10,74 +10,91 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.visionapp.viewmodel.FavoritosViewModel
+import androidx.compose.material3.Scaffold
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
+import com.example.visionapp.ui.components.HomeBottomBar
 
 @Composable
-fun FavoritosScreen() {
+fun FavoritosScreen(
+    navController: NavController
+) {
 
     val favoritosViewModel = FavoritosViewModel.instance
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-
-        item {
-
-            Text(
-                text = "Favoritos",
-                style = MaterialTheme.typography.headlineMedium
-            )
-
-            Spacer(
-                modifier = Modifier.height(16.dp)
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
             )
         }
+    ) { padding ->
 
-        items(favoritosViewModel.favoritos) { produto ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
 
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp)
-            ) {
+            item {
 
-                Column(
-                    modifier = Modifier.padding(16.dp)
+                Text(
+                    text = "Favoritos",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+            }
+
+            items(favoritosViewModel.favoritos) { produto ->
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
                 ) {
 
-                    AsyncImage(
-                        model = "http://10.39.45.29:3000/uploads/${produto.imagem}",
-                        contentDescription = produto.nome,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(180.dp)
-                    )
-
-                    Spacer(
-                        modifier = Modifier.height(8.dp)
-                    )
-
-                    Text(
-                        text = produto.nome
-                    )
-
-                    Text(
-                        text = "R$ ${produto.preco}"
-                    )
-                    Spacer(
-                        modifier = Modifier.height(8.dp)
-                    )
-
-                    Button(
-                        onClick = {
-                            favoritosViewModel.remover(produto)
-                        },
-                        modifier = Modifier.fillMaxWidth()
+                    Column(
+                        modifier = Modifier.padding(16.dp)
                     ) {
-                        Text("❌ Remover dos Favoritos")
-                    }
 
+                        AsyncImage(
+                            model = "http://10.39.45.29:3000/uploads/${produto.imagem}",
+                            contentDescription = produto.nome,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(180.dp)
+                        )
+
+                        Spacer(
+                            modifier = Modifier.height(8.dp)
+                        )
+
+                        Text(
+                            text = produto.nome
+                        )
+
+                        Text(
+                            text = "R$ ${produto.preco}"
+                        )
+                        Spacer(
+                            modifier = Modifier.height(8.dp)
+                        )
+
+                        Button(
+                            onClick = {
+                                favoritosViewModel.remover(produto)
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("❌ Remover dos Favoritos")
+                        }
+
+                    }
                 }
             }
         }

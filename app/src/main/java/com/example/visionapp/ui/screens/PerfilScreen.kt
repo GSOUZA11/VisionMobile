@@ -30,6 +30,9 @@ import coil.compose.AsyncImage
 import com.example.visionapp.utils.ProfileImageManager
 import androidx.compose.material3.AlertDialog
 import com.example.visionapp.R
+import com.example.visionapp.ui.components.HomeBottomBar
+import androidx.compose.material3.Scaffold
+import com.example.visionapp.utils.TokenManager
 
 @Composable
 fun PerfilScreen(
@@ -91,147 +94,164 @@ fun PerfilScreen(
             }
         }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-
-        Text(
-            text = "Meu Perfil",
-            style = MaterialTheme.typography.headlineMedium
-        )
-        Spacer(
-            modifier = Modifier.height(16.dp)
-        )
-
-        if (imageUri.isNotBlank()) {
-
-            AsyncImage(
-                model = java.io.File(imageUri),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(120.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
             )
+        }
+    ) { padding ->
 
-        } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
 
             Text(
-                text = "📷 Adicione uma foto"
+                text = "Meu Perfil",
+                style = MaterialTheme.typography.headlineMedium
             )
-        }
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
 
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
+            if (imageUri.isNotBlank()) {
 
-        Button(
-            onClick = {
-                launcher.launch("image/*")
+                AsyncImage(
+                    model = java.io.File(imageUri),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+
+            } else {
+
+                Text(
+                    text = "📷 Adicione uma foto"
+                )
             }
-        ) {
-            Text("Escolher Foto")
-        }
 
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
 
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
+            Button(
+                onClick = {
+                    launcher.launch("image/*")
+                }
+            ) {
+                Text("Escolher Foto")
+            }
 
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+            Spacer(
+                modifier = Modifier.height(48.dp)
+            )
 
-            Column(
-                modifier = Modifier.padding(16.dp)
+            Card(
+                modifier = Modifier.fillMaxWidth()
             ) {
 
-                Text(
-                    text = usuario?.nome ?: "Carregando...",
-                    fontWeight = FontWeight.Bold
-                )
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
+                    Text(
+                        text = usuario?.nome ?: "Carregando...",
+                        fontWeight = FontWeight.Bold
+                    )
 
 
-                Spacer(
-                    modifier = Modifier.height(8.dp)
-                )
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
 
-                Text(
-                    text = usuario?.email ?: ""
-                )
+                    Text(
+                        text = usuario?.email ?: ""
+                    )
 
-                Text(
-                    text = usuario?.telefone ?: ""
+                    Text(
+                        text = usuario?.telefone ?: ""
+                    )
+                }
+            }
+
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
+
+            Button(
+                onClick = {
+                    navController.navigate(Routes.EDITAR_PERFIL)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Editar Perfil")
+            }
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            Button(
+                onClick = {
+                    mostrarLogout = true
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Sair da Conta")
+            }
+            if (mostrarLogout) {
+
+                AlertDialog(
+                    onDismissRequest = {
+                        mostrarLogout = false
+                    },
+
+                    title = {
+                        Text("Sair da Conta")
+                    },
+
+                    text = {
+                        Text("Deseja realmente sair da conta?")
+                    },
+
+                    confirmButton = {
+
+                        TextButton(
+                            onClick = {
+
+                                mostrarLogout = false
+
+                                TokenManager(context)
+                                    .clearToken()
+
+                                navController.navigate(
+                                    Routes.LOGIN
+                                ) {
+                                    popUpTo(0)
+                                }
+                            }
+                        ) {
+                            Text("Sair")
+                        }
+                    },
+
+                    dismissButton = {
+                        TextButton(
+                            onClick = {
+                                mostrarLogout = false
+                            }
+                        ) {
+                            Text("Cancelar")
+                        }
+                    }
                 )
             }
-        }
-
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
-
-        Button(
-            onClick = {
-                navController.navigate(Routes.EDITAR_PERFIL)
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Editar Perfil")
-        }
-
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
-
-        Button(
-            onClick = {
-                mostrarLogout = true
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Sair da Conta")
-        }
-        if (mostrarLogout) {
-
-            AlertDialog(
-                onDismissRequest = {
-                    mostrarLogout = false
-                },
-
-                title = {
-                    Text("Sair da Conta")
-                },
-
-                text = {
-                    Text("Deseja realmente sair da conta?")
-                },
-
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            mostrarLogout = false
-                            navController.navigate(Routes.LOGIN)
-                        }
-                    ) {
-                        Text("Sair")
-                    }
-                },
-
-                dismissButton = {
-                    TextButton(
-                        onClick = {
-                            mostrarLogout = false
-                        }
-                    ) {
-                        Text("Cancelar")
-                    }
-                }
-            )
         }
     }
 }

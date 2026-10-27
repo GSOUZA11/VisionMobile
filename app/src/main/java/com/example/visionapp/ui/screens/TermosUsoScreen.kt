@@ -7,29 +7,45 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Scaffold
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
+import com.example.visionapp.ui.components.HomeBottomBar
 
 @Composable
-fun TermosUsoScreen() {
+fun TermosUsoScreen(
+    navController: NavController
+) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp)
-    ) {
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
+            )
+        }
+    ) { padding ->
 
-        Text(
-            text = "Termos de Uso",
-            style = MaterialTheme.typography.headlineMedium
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
 
-        Spacer(
-            modifier = Modifier.height(16.dp)
-        )
+            Text(
+                text = "Termos de Uso",
+                style = MaterialTheme.typography.headlineMedium
+            )
 
-        Text(
-            text =
-                "Ao utilizar o Vision Mobile, o usuário concorda com as condições de utilização do aplicativo e com o tratamento dos dados necessários para o funcionamento da plataforma."
-        )
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            Text(
+                text =
+                    "Ao utilizar o Vision Mobile, o usuário concorda com as condições de utilização do aplicativo e com o tratamento dos dados necessários para o funcionamento da plataforma."
+            )
+        }
     }
 }

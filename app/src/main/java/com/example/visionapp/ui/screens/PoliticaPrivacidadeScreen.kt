@@ -7,29 +7,45 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Scaffold
+import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
+import com.example.visionapp.ui.components.HomeBottomBar
 
 @Composable
-fun PoliticaPrivacidadeScreen() {
+fun PoliticaPrivacidadeScreen(
+    navController: NavController
+) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp)
-    ) {
+    Scaffold(
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.MAIS,
+                navController = navController
+            )
+        }
+    ) { padding ->
 
-        Text(
-            text = "Política de Privacidade",
-            style = MaterialTheme.typography.headlineMedium
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
 
-        Spacer(
-            modifier = Modifier.height(16.dp)
-        )
+            Text(
+                text = "Política de Privacidade",
+                style = MaterialTheme.typography.headlineMedium
+            )
 
-        Text(
-            text =
-                "O Vision Mobile utiliza os dados fornecidos pelo usuário exclusivamente para autenticação, navegação e realização de compras no aplicativo."
-        )
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            Text(
+                text =
+                    "O Vision Mobile utiliza os dados fornecidos pelo usuário exclusivamente para autenticação, navegação e realização de compras no aplicativo."
+            )
+        }
     }
 }

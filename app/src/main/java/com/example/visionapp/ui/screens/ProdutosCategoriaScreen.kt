@@ -14,8 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.visionapp.navigation.Routes
 import com.example.visionapp.ui.components.FiltroBar
 import com.example.visionapp.ui.components.FiltroBottomSheet
+import com.example.visionapp.ui.components.HomeBottomBar
 import com.example.visionapp.ui.components.OrdenacaoBottomSheet
 import com.example.visionapp.ui.components.ProdutoMiniCard
 import com.example.visionapp.viewmodel.OculosViewModel
@@ -148,7 +150,16 @@ fun ProdutosCategoriaScreen(
         }
     }
 
-    Scaffold { padding ->
+    Scaffold(
+
+        bottomBar = {
+            HomeBottomBar(
+                currentRoute = Routes.CATEGORIA,
+                navController = navController
+            )
+        }
+
+    ) { padding ->
 
         Column(
             modifier = Modifier
