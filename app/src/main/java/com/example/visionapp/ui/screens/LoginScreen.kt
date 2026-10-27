@@ -1,229 +1,304 @@
+
 package com.example.visionapp.ui.screens
 
-import androidx.navigation.NavController
-import com.example.visionapp.navigation.Routes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.visionapp.R
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.launch
-import com.example.visionapp.viewmodel.AuthViewModel
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.visionapp.R
+import com.example.visionapp.navigation.Routes
 import com.example.visionapp.utils.TokenManager
+import com.example.visionapp.viewmodel.AuthViewModel
+import kotlinx.coroutines.launch
 
+private val VisionBlue = Color(0xFF079AF5)
+private val VisionTabBlue = Color(0xFF0788FF)
+private val VisionOrange = Color(0xFFE67600)
+private val VisionGray = Color(0xFF929292)
 
 @Composable
 fun LoginScreen(
     navController: NavController
 ) {
-
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
+
     val viewModel: AuthViewModel = viewModel()
     val scope = rememberCoroutineScope()
-
     val context = LocalContext.current
-    val tokenManager = TokenManager(context)
+    val tokenManager = remember { TokenManager(context) }
 
-    Box(
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF149AF5))
+            .background(VisionBlue)
     ) {
+        val alturaDisponivel = maxHeight
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 30.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(
+                modifier = Modifier.height(alturaDisponivel * 0.175f)
+            )
 
-            Spacer(modifier = Modifier.height(70.dp))
-
-            // LOGO
             Image(
                 painter = painterResource(id = R.drawable.logo_vision),
                 contentDescription = "Logo Vision",
                 modifier = Modifier
-                    .width(250.dp)
-                    .height(120.dp)
+                    .fillMaxWidth()
+                    .height(140.dp),
+                contentScale = androidx.compose.ui.layout.ContentScale.Fit
             )
-
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp)
                     .weight(1f),
                 shape = RoundedCornerShape(40.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = Color.White
                 )
             ) {
-
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(24.dp)
+                        .padding(horizontal = 31.dp)
+                        .padding(top = 86.dp, bottom = 18.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
+                    // Abas Login e Cadastro
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(55.dp)
+                            .height(59.dp)
                             .background(
-                                Color(0xFF168AF0),
-                                RoundedCornerShape(30.dp)
+                                VisionTabBlue,
+                                RoundedCornerShape(32.dp)
                             ),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-
-                        Button(
-                            onClick = {},
-                            modifier = Modifier.weight(1f),
-                            shape = RoundedCornerShape(30.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color.Black
-                            )
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
+                                .background(
+                                    Color.Black,
+                                    RoundedCornerShape(32.dp)
+                                )
+                                .clickable { },
+                            contentAlignment = Alignment.Center
                         ) {
-                            Text("Login")
+                            Text(
+                                text = "Login",
+                                color = Color.White,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
 
-                        TextButton(
-                            onClick = {
-                                navController.navigate(Routes.CADASTRO)
-                            },
-                            modifier = Modifier.weight(1f)
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
+                                .clickable {
+                                    navController.navigate(Routes.CADASTRO)
+                                },
+                            contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 text = "Cadastrar-se",
-                                color = Color.White
+                                color = Color.White,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
                             )
                         }
-
                     }
 
-                    Spacer(modifier = Modifier.height(36.dp))
+                    Spacer(modifier = Modifier.height(38.dp))
 
                     Text(
-                        text = "Bem-vindo ao Vision",
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold
+                        text = "Bem-vindo à o Vision",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        maxLines = 1
                     )
 
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(49.dp))
 
-                    OutlinedTextField(
+                    // Campo de e-mail com linha inferior
+                    VisionInput(
                         value = email,
                         onValueChange = { email = it },
-                        label = { Text("E-mail") },
-                        modifier = Modifier.fillMaxWidth(),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Email
-                        )
+                        label = "E-mail",
+                        keyboardType = KeyboardType.Email
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(25.dp))
 
-                    OutlinedTextField(
+                    // Campo de senha com linha inferior
+                    VisionInput(
                         value = senha,
                         onValueChange = { senha = it },
-                        label = { Text("Senha") },
-                        visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth()
+                        label = "senha:",
+                        keyboardType = KeyboardType.Password,
+                        isPassword = true
                     )
 
-                    Spacer(modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.height(35.dp))
 
                     Button(
                         onClick = {
-
                             scope.launch {
-
                                 try {
-
                                     viewModel.atualizarEmail(email)
                                     viewModel.atualizarSenha(senha)
 
-                                    println("EMAIL: $email")
-                                    println("SENHA: $senha")
-
                                     val sucesso = viewModel.login()
 
-                                    println("SUCESSO LOGIN: $sucesso")
-
                                     if (sucesso) {
-
-                                        viewModel.loginResponse?.token?.let { token ->
-
-                                            tokenManager.saveToken(token)
-
-                                            println("TOKEN SALVO: $token")
+                                        viewModel.loginResponse?.token?.let {
+                                            tokenManager.saveToken(it)
                                         }
 
-                                        println("INDO PARA HOME")
-
-                                        navController.navigate(
-                                            Routes.HOME
-                                        )
-
-                                    } else {
-
-                                        println("LOGIN FALHOU")
-
+                                        navController.navigate(Routes.HOME) {
+                                            popUpTo(Routes.HOME) {
+                                                inclusive = true
+                                            }
+                                        }
                                     }
-
                                 } catch (e: Exception) {
-
                                     e.printStackTrace()
-
                                 }
                             }
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(55.dp),
-                        shape = RoundedCornerShape(30.dp),
+                            .height(59.dp),
+                        shape = RoundedCornerShape(32.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFE67600)
+                            containerColor = VisionOrange
                         )
                     ) {
                         Text(
                             text = "Entrar",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(14.dp))
 
                     TextButton(
                         onClick = {
                             navController.navigate(Routes.ESQUECEU_SENHA)
                         },
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                        contentPadding = PaddingValues(
+                            horizontal = 8.dp,
+                            vertical = 4.dp
+                        )
                     ) {
                         Text(
                             text = "Esqueceu sua senha?",
-                            color = Color(0xFFE67600)
+                            color = VisionOrange,
+                            fontSize = 14.sp
                         )
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(49.dp))
         }
+    }
+}
+
+@Composable
+private fun VisionInput(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    keyboardType: KeyboardType,
+    isPassword: Boolean = false
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(38.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = label,
+                color = VisionGray,
+                fontSize = 14.sp,
+                modifier = Modifier.width(63.dp)
+            )
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                BasicTextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    singleLine = true,
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontSize = 14.sp
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = keyboardType
+                    ),
+                    visualTransformation = if (isPassword) {
+                        PasswordVisualTransformation()
+                    } else {
+                        androidx.compose.ui.text.input.VisualTransformation.None
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp)
+                .height(1.dp)
+                .background(VisionGray)
+        )
     }
 }
