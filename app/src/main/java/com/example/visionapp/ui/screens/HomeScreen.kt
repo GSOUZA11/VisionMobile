@@ -245,7 +245,7 @@ fun HomeScreen(
                         AssistChip(
                             onClick = {
                                 navController.navigate(
-                                    Routes.produtosCategoria("Clássico")
+                                    Routes.produtosCategoria("Classico")
                                 )
                             },
                             label = {
@@ -253,7 +253,6 @@ fun HomeScreen(
                             }
                         )
                     }
-
                     item {
                         AssistChip(
                             onClick = {
