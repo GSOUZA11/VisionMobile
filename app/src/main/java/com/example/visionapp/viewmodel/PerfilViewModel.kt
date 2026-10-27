@@ -67,6 +67,8 @@ class PerfilViewModel : ViewModel() {
 
                 if (resposta.isSuccessful) {
 
+                    println("PERFIL ATUALIZADO COM SUCESSO")
+
                     carregarPerfil()
 
                     onSuccess()
@@ -75,7 +77,7 @@ class PerfilViewModel : ViewModel() {
 
                     println("ERRO ATUALIZAR PERFIL")
                     println("CODIGO: ${resposta.code()}")
-
+                    println("BODY: ${resposta.errorBody()?.string()}")
                 }
 
             } catch (e: Exception) {

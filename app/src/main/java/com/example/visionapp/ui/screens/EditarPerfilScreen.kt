@@ -19,16 +19,32 @@ fun EditarPerfilScreen(
 
     val perfilViewModel: PerfilViewModel = viewModel()
 
+    LaunchedEffect(Unit) {
+        perfilViewModel.carregarPerfil()
+    }
+
+    val usuario = perfilViewModel.usuario.value
+
     var nome by remember {
-        mutableStateOf("Gabriel Araujo Souza")
+        mutableStateOf("")
     }
 
     var email by remember {
-        mutableStateOf("gabriel@email.com")
+        mutableStateOf("")
     }
 
     var telefone by remember {
-        mutableStateOf("(11) 99999-9999")
+        mutableStateOf("")
+    }
+
+    LaunchedEffect(usuario) {
+
+        usuario?.let {
+
+            nome = it.nome
+            email = it.email
+            telefone = it.telefone
+        }
     }
 
     Column(
@@ -48,8 +64,12 @@ fun EditarPerfilScreen(
 
         OutlinedTextField(
             value = nome,
-            onValueChange = { nome = it },
-            label = { Text("Nome") },
+            onValueChange = {
+                nome = it
+            },
+            label = {
+                Text("Nome")
+            },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -59,8 +79,12 @@ fun EditarPerfilScreen(
 
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
-            label = { Text("E-mail") },
+            onValueChange = {
+                email = it
+            },
+            label = {
+                Text("E-mail")
+            },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -70,8 +94,12 @@ fun EditarPerfilScreen(
 
         OutlinedTextField(
             value = telefone,
-            onValueChange = { telefone = it },
-            label = { Text("Telefone") },
+            onValueChange = {
+                telefone = it
+            },
+            label = {
+                Text("Telefone")
+            },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -80,6 +108,10 @@ fun EditarPerfilScreen(
         )
 
         Button(
+            enabled =
+                nome.isNotBlank() &&
+                        email.isNotBlank(),
+
             onClick = {
 
                 perfilViewModel.atualizarPerfil(
@@ -89,12 +121,12 @@ fun EditarPerfilScreen(
                 ) {
 
                     navController.popBackStack()
-
                 }
-
             },
+
             modifier = Modifier.fillMaxWidth()
         ) {
+
             Text("Salvar Alterações")
         }
     }
