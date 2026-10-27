@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Help
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,6 +23,10 @@ import com.example.visionapp.ui.components.HomeBottomBar
 fun AjudaScreen(
     navController: NavController
 ) {
+
+    var pesquisa by remember {
+        mutableStateOf("")
+    }
 
     val perguntas = listOf(
 
@@ -59,8 +64,18 @@ fun AjudaScreen(
             "Quais formas de pagamento são aceitas?",
             "Pix, cartão de crédito e débito."
         )
-
     )
+
+    val perguntasFiltradas = perguntas.filter {
+        it.pergunta.contains(
+            pesquisa,
+            ignoreCase = true
+        ) ||
+                it.resposta.contains(
+                    pesquisa,
+                    ignoreCase = true
+                )
+    }
 
     Scaffold(
 
@@ -102,11 +117,49 @@ fun AjudaScreen(
                 )
 
                 Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+
+                OutlinedTextField(
+                    value = pesquisa,
+                    onValueChange = {
+                        pesquisa = it
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = {
+                        Text("Buscar pergunta")
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null
+                        )
+                    },
+                    singleLine = true
+                )
+
+                Spacer(
                     modifier = Modifier.height(12.dp)
                 )
             }
 
-            items(perguntas) { item ->
+            if (perguntasFiltradas.isEmpty()) {
+
+                item {
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+
+                        Text(
+                            text = "Nenhuma pergunta encontrada.",
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+                }
+            }
+
+            items(perguntasFiltradas) { item ->
 
                 FAQCard(item)
 
@@ -139,10 +192,8 @@ fun FAQCard(
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement =
-                    Arrangement.SpaceBetween,
-                verticalAlignment =
-                    Alignment.CenterVertically
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
 
                 Text(
