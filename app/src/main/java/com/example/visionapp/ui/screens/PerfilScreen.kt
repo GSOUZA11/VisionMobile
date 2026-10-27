@@ -32,6 +32,7 @@ import androidx.compose.material3.AlertDialog
 import com.example.visionapp.R
 import com.example.visionapp.ui.components.HomeBottomBar
 import androidx.compose.material3.Scaffold
+import com.example.visionapp.utils.TokenManager
 
 @Composable
 fun PerfilScreen(
@@ -148,11 +149,7 @@ fun PerfilScreen(
             }
 
             Spacer(
-                modifier = Modifier.height(24.dp)
-            )
-
-            Spacer(
-                modifier = Modifier.height(24.dp)
+                modifier = Modifier.height(48.dp)
             )
 
             Card(
@@ -224,10 +221,20 @@ fun PerfilScreen(
                     },
 
                     confirmButton = {
+
                         TextButton(
                             onClick = {
+
                                 mostrarLogout = false
-                                navController.navigate(Routes.LOGIN)
+
+                                TokenManager(context)
+                                    .clearToken()
+
+                                navController.navigate(
+                                    Routes.LOGIN
+                                ) {
+                                    popUpTo(0)
+                                }
                             }
                         ) {
                             Text("Sair")
