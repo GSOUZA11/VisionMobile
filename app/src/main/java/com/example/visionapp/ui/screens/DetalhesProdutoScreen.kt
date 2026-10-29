@@ -21,6 +21,8 @@ import androidx.navigation.NavController
 import com.example.visionapp.viewmodel.CarrinhoViewModel
 import com.example.visionapp.navigation.Routes
 import com.example.visionapp.viewmodel.FavoritosViewModel
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 
 @Composable
 fun DetalhesProdutoScreen(
@@ -87,17 +89,56 @@ fun DetalhesProdutoScreen(
                 fontWeight = FontWeight.Bold
             )
 
-            Text(
-                text = "Cor: ${produto?.cor ?: ""}"
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
 
-            Text(
-                text = "Grau: ${produto?.grau ?: "Não informado"}"
-            )
+                Card(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(12.dp)
+                    ) {
+                        Text("Cor")
+                        Text(
+                            text = produto?.cor ?: "",
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
 
-            Text(
-                text = "Tamanho: ${produto?.tamanho ?: ""}"
+                Card(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(12.dp)
+                    ) {
+                        Text("Tamanho")
+                        Text(
+                            text = produto?.tamanho ?: "",
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            }
+            Spacer(
+                modifier = Modifier.height(8.dp)
             )
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(12.dp)
+                ) {
+                    Text("Grau")
+
+                    Text(
+                        text = produto?.grau ?: "Não informado",
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
 
             Spacer(
                 modifier = Modifier.height(12.dp)
@@ -130,10 +171,17 @@ fun DetalhesProdutoScreen(
                 modifier = Modifier.height(12.dp)
             )
 
-            Text(
-                text = "Em estoque: ${produto?.estoque ?: 0} unidades",
-                color = Color(0xFF1976D2)
-            )
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text(
+                    text = "🟢 ${produto?.estoque ?: 0} unidades disponíveis",
+                    modifier = Modifier.padding(16.dp),
+                    color = Color(0xFF2E7D32),
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
             Spacer(
                 modifier = Modifier.height(12.dp)
@@ -147,12 +195,7 @@ fun DetalhesProdutoScreen(
             )
 
             Spacer(
-                modifier = Modifier.height(24.dp)
-            )
-
-
-            Spacer(
-                modifier = Modifier.height(24.dp)
+                modifier = Modifier.height(48.dp)
             )
 
             Card(
