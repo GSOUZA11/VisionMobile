@@ -81,19 +81,6 @@ fun MinhasComprasScreen(
                     modifier = Modifier.height(16.dp)
                 )
 
-                Button(
-                    onClick = {
-                        mostrarDialogo = true
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Excluir Todo Histórico")
-                }
-
-                Spacer(
-                    modifier = Modifier.height(16.dp)
-                )
-
                 Spacer(
                     modifier = Modifier.height(16.dp)
                 )
