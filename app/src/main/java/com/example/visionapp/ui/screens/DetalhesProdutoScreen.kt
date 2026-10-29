@@ -15,6 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.visionapp.viewmodel.OculosViewModel
 import android.widget.Toast
+import androidx.compose.material3.Card
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.visionapp.viewmodel.CarrinhoViewModel
@@ -81,7 +82,9 @@ fun DetalhesProdutoScreen(
             )
 
             Text(
-                text = "Categoria: ${produto?.categoria ?: ""}"
+                text = produto?.categoria?.uppercase() ?: "",
+                color = Color(0xFF5568FE),
+                fontWeight = FontWeight.Bold
             )
 
             Text(
@@ -100,14 +103,28 @@ fun DetalhesProdutoScreen(
                 modifier = Modifier.height(12.dp)
             )
 
-            Text(
-                text = "Descrição:",
-                fontWeight = FontWeight.Bold
-            )
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
 
-            Text(
-                text = produto?.descricao ?: ""
-            )
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
+                    Text(
+                        text = "Descrição",
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+
+                    Text(
+                        text = produto?.descricao ?: ""
+                    )
+                }
+            }
 
             Spacer(
                 modifier = Modifier.height(12.dp)
@@ -126,27 +143,46 @@ fun DetalhesProdutoScreen(
                 text = "R$ ${produto?.preco ?: ""}",
                 color = Color(0xFF2E7D32),
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineMedium
             )
 
             Spacer(
                 modifier = Modifier.height(24.dp)
             )
 
-            Text(
-                text = "Itens no carrinho: ${carrinhoViewModel.totalItens()}"
-            )
 
             Spacer(
-                modifier = Modifier.height(8.dp)
-            )
-            Text(
-                text = "Valor total: R$ ${carrinhoViewModel.valorTotal()}"
+                modifier = Modifier.height(24.dp)
             )
 
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
+                    Text("✓ Produto disponível")
+
+                    Spacer(
+                        modifier = Modifier.height(4.dp)
+                    )
+
+                    Text("✓ Compra segura")
+
+                    Spacer(
+                        modifier = Modifier.height(4.dp)
+                    )
+
+                    Text("✓ Entrega para todo Brasil")
+                }
+            }
+
             Spacer(
-                modifier = Modifier.height(8.dp)
+                modifier = Modifier.height(16.dp)
             )
+
             Button(
                 onClick = {
 
